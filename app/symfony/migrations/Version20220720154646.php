@@ -28,7 +28,7 @@ final class Version20220720154646 extends AbstractMigration
         $this->addSql("INSERT INTO role (name) VALUES ('admin'), ('technician')");
         $this->addSql("INSERT INTO priority (name) VALUES ('low'), ('medium'), ('high')");
         $this->addSql("INSERT INTO label (name) VALUES ('software'), ('hardware'), ('cloud'), ('host'), ('email')");
-        $this->addSql("INSERT INTO status (name) VALUES ('open'), ('complited'), ('closed')");
+        $this->addSql("INSERT INTO status (name) VALUES ('open'), ('completed'), ('closed')");
     }
 
     public function down(Schema $schema): void

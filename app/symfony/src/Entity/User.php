@@ -41,9 +41,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'technician_user_id', targetEntity: Ticket::class)]
     private Collection $tickets;
 
+    #[ORM\OneToMany(mappedBy: 'admin_user_id', targetEntity: Ticket::class)]
+    private Collection $adminTickets;
+
     public function __construct()
     {
         $this->tickets = new ArrayCollection();
+        $this->adminTickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +194,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($ticket->getTechnicianUserId() === $this) {
                 $ticket->setTechnicianUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getAdminTickets(): Collection
+    {
+        return $this->adminTickets;
+    }
+
+    public function addAdminTicket(Ticket $adminTicket): self
+    {
+        if (!$this->adminTickets->contains($adminTicket)) {
+            $this->adminTickets[] = $adminTicket;
+            $adminTicket->setAdminUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdminTicket(Ticket $adminTicket): self
+    {
+        if ($this->adminTickets->removeElement($adminTicket)) {
+            // set the owning side to null (unless already changed)
+            if ($adminTicket->getAdminUserId() === $this) {
+                $adminTicket->setAdminUserId(null);
             }
         }
 

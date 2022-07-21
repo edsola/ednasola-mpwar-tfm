@@ -43,6 +43,10 @@ class Ticket
     #[ORM\ManyToMany(targetEntity: label::class, inversedBy: 'tickets')]
     private Collection $labels;
 
+    #[ORM\ManyToOne(inversedBy: 'adminTickets')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $admin_user_id = null;
+
     public function __construct()
     {
         $this->labels = new ArrayCollection();
@@ -157,6 +161,18 @@ class Ticket
     public function removeLabel(label $label): self
     {
         $this->labels->removeElement($label);
+
+        return $this;
+    }
+
+    public function getAdminUserId(): ?user
+    {
+        return $this->admin_user_id;
+    }
+
+    public function setAdminUserId(?user $admin_user_id): self
+    {
+        $this->admin_user_id = $admin_user_id;
 
         return $this;
     }
