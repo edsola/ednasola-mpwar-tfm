@@ -30,22 +30,22 @@ class Ticket
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $technician_user_id = null;
+    private ?User $technician_user_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?priority $priority_id = null;
+    private ?Priority $priority_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'tickets')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?status $status_id = null;
+    private ?Status $status_id = null;
 
-    #[ORM\ManyToMany(targetEntity: label::class, inversedBy: 'tickets')]
+    #[ORM\ManyToMany(targetEntity: Label::class, inversedBy: 'tickets')]
     private Collection $labels;
 
     #[ORM\ManyToOne(inversedBy: 'adminTickets')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $admin_user_id = null;
+    private ?User $admin_user_id = null;
 
     public function __construct()
     {
