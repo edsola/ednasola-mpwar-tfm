@@ -105,36 +105,36 @@ class Ticket
         return $this;
     }
 
-    public function getTechnicianUserId(): ?user
+    public function getTechnicianUserId(): ?User
     {
         return $this->technician_user_id;
     }
 
-    public function setTechnicianUserId(?user $technician_user_id): self
+    public function setTechnicianUserId(?User $technician_user_id): self
     {
         $this->technician_user_id = $technician_user_id;
 
         return $this;
     }
 
-    public function getPriorityId(): ?priority
+    public function getPriorityId(): ?Priority
     {
         return $this->priority_id;
     }
 
-    public function setPriorityId(?priority $priority_id): self
+    public function setPriorityId(?Priority $priority_id): self
     {
         $this->priority_id = $priority_id;
 
         return $this;
     }
 
-    public function getStatusId(): ?status
+    public function getStatusId(): ?Status
     {
         return $this->status_id;
     }
 
-    public function setStatusId(?status $status_id): self
+    public function setStatusId(?Status $status_id): self
     {
         $this->status_id = $status_id;
 
@@ -142,14 +142,14 @@ class Ticket
     }
 
     /**
-     * @return Collection<int, label>
+     * @return Collection<int, Label>
      */
     public function getLabels(): Collection
     {
         return $this->labels;
     }
 
-    public function addLabel(label $label): self
+    public function addLabel(Label $label): self
     {
         if (!$this->labels->contains($label)) {
             $this->labels[] = $label;
@@ -158,19 +158,19 @@ class Ticket
         return $this;
     }
 
-    public function removeLabel(label $label): self
+    public function removeLabel(Label $label): self
     {
         $this->labels->removeElement($label);
 
         return $this;
     }
 
-    public function getAdminUserId(): ?user
+    public function getAdminUserId(): ?User
     {
         return $this->admin_user_id;
     }
 
-    public function setAdminUserId(?user $admin_user_id): self
+    public function setAdminUserId(?User $admin_user_id): self
     {
         $this->admin_user_id = $admin_user_id;
 
