@@ -3,18 +3,17 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
 
-<div class="example-wrapper">
+    <div class="example-wrapper">
 
-    <h1>Tickets</h1>
+        <h1>Tickets</h1>
 
-    {% for ticket in tickets %}
-        <a href="{{ path('app_ticket', {'id': ticket.id}) }}" style="display: block">
+
             <article>
                 <h5>Title</h5>
                 <p>{{ ticket.title }}</p>
@@ -40,11 +39,8 @@
 
                 <h5>Date</h5>
                 <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
-
+                
                 <hr>
             </article>
-        </a>
-    {% endfor %}
-
-</div>
+    </div>
 {% endblock %}
