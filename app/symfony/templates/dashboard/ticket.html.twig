@@ -39,7 +39,19 @@
 
                 <h5>Date</h5>
                 <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
-                
+
+                <div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="btn btn-primary"><i class="fa fa-edit"> Edit</i></a>
+                        <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-trash-o"> Delete</i></a>
+                    {% endif %}
+
+                    {% if not is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-check-square-o"> Mark as completed</i></a>
+                    {% endif %}
+
+                </div>
+
                 <hr>
             </article>
     </div>

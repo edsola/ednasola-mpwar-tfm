@@ -13,7 +13,15 @@ class DashboardController extends AbstractController
     #[Route('/', name: 'app_dashboard')]
     public function index(TicketRepository $ticketRepository): Response
     {
-        $tickets = $ticketRepository->findBy([], ['created_date' => 'ASC']);
+        $authenticatedUser = $this->getUser();
+
+        if ($authenticatedUser->getRoles()[0] === 'ROLE_ADMIN') {
+            $tickets = $ticketRepository->findBy([], ['created_date' => 'DESC']);
+        }
+
+        if ($authenticatedUser->getRoles()[0] === 'ROLE_TECHNICIAN') {
+            $tickets = $ticketRepository->findBy(['technician_user_id' => $authenticatedUser], ['created_date' => 'DESC']);
+        }
 
         return $this->render('dashboard/tickets.html.twig', [
             'tickets' => $tickets,
@@ -30,19 +38,5 @@ class DashboardController extends AbstractController
             'ticket' => $ticket,
         ]);
     }
-
-    /*
-    #[Route('/ticket/{id}', name: 'app_ticket_status')]
-    public function ChangeTicketStatus(Request $request, TicketRepository $ticketRepository): Response
-    {
-        $ticketID = $request->get('id');
-        $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
-        $ticket->setStatusId()
-
-        return $this->render('dashboard/ticket.html.twig', [
-            'ticket' => $ticket,
-        ]);
-    }*/
-
 
 }
