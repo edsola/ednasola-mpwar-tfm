@@ -39,4 +39,15 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/ticket/{id}', name: 'app_ticket_delete', methods: ['GET'])]
+    public function DeleteTicket(Request $request, TicketRepository $ticketRepository): Response
+    {
+        $ticketID = $request->get('id');
+        $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
+        $ticketRepository->remove($ticket, true);
+
+        return $this->redirectToRoute('app_home');
+    }
+
+
 }
