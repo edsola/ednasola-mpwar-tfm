@@ -3,48 +3,46 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-
-<div class="example-wrapper">
-
+<main>
     <h1>Tickets</h1>
+    <section class="">
+    {% for row in tickets|batch(2) %}
+        <div class="row tickets-grid">
 
-    {% for ticket in tickets %}
-        <a href="{{ path('app_ticket', {'id': ticket.id}) }}" style="display: block">
-            <article>
-                <h5>Title</h5>
-                <p>{{ ticket.title }}</p>
+            {% for ticket in row %}
+                <article class="col ticket-card">
+                    <a href="{{ path('app_ticket', {'id': ticket.id}) }}" style="display: block">
+                        <h5>Title</h5>
+                        <p>{{ ticket.title }}</p>
+                        <hr>
+                        <h5>Description</h5>
+                        <p>{{ ticket.description }}</p>
+                        <hr>
+                        <h5>Assigned to</h5>
+                        <p>{{ ticket.TechnicianUserId }}</p>
+                        <hr>
+                        <h5>Priority</h5>
+                        <p>{{ ticket.PriorityId }}</p>
+                        <hr>
+                        <h5>Status</h5>
+                        <p>{{ ticket.StatusId }}</p>
+                        <hr>
+                        <h5>Categories</h5>
+                        <p>
+                            {% for label in ticket.labels %}
+                                {{ label }}
+                            {% endfor %}
+                        </p>
+                        <hr>
+                        <h5>Date</h5>
+                        <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
+                    </a>
+                </article>
+            {% endfor %}
 
-                <h5>Description</h5>
-                <p>{{ ticket.description }}</p>
-
-                <h5>Assigned to</h5>
-                <p>{{ ticket.TechnicianUserId }}</p>
-
-                <h5>Priority</h5>
-                <p>{{ ticket.PriorityId }}</p>
-
-                <h5>Status</h5>
-                <p>{{ ticket.StatusId }}</p>
-
-                <h5>Categories</h5>
-                <p>
-                    {% for label in ticket.labels %}
-                        {{ label }}
-                    {% endfor %}
-                </p>
-
-                <h5>Date</h5>
-                <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
-
-                <hr>
-            </article>
-        </a>
+        </div>
     {% endfor %}
+    </section>
 
-</div>
+</main>
 {% endblock %}
