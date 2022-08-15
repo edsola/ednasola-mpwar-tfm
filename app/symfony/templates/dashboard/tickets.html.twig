@@ -5,44 +5,103 @@
 {% block body %}
 <main>
     <h1>Tickets</h1>
-    <section class="">
-    {% for row in tickets|batch(2) %}
-        <div class="row tickets-grid">
+    <section class="tickets tickets-desktop row">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Task</th>
+                        <th scope="col">Assigned to</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
 
-            {% for ticket in row %}
-                <article class="col ticket-card">
-                    <a href="{{ path('app_ticket', {'id': ticket.id}) }}" style="display: block">
-                        <h5>Title</h5>
-                        <p>{{ ticket.title }}</p>
-                        <hr>
-                        <h5>Description</h5>
-                        <p>{{ ticket.description }}</p>
-                        <hr>
-                        <h5>Assigned to</h5>
-                        <p>{{ ticket.TechnicianUserId }}</p>
-                        <hr>
-                        <h5>Priority</h5>
-                        <p>{{ ticket.PriorityId }}</p>
-                        <hr>
-                        <h5>Status</h5>
-                        <p>{{ ticket.StatusId }}</p>
-                        <hr>
-                        <h5>Categories</h5>
-                        <p>
+                <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_ticket', {'id': ticket.id}) }}"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
+                            <p class="text-muted">
+                                {{ ticket.description | slice(0, 70) | raw }}
+                                {% if ticket.description | length > 70 %}
+                                     ...
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
+                            <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
+                        </td>
+                        <td>
+                            {{ ticket.StatusId }}
+                        </td>
+                        <td>
                             {% for label in ticket.labels %}
                                 {{ label }}
                             {% endfor %}
-                        </p>
-                        <hr>
-                        <h5>Date</h5>
-                        <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
-                    </a>
-                </article>
-            {% endfor %}
+                        </td>
+                        <td>
+                            {{ ticket.CreatedDate | date("d/m/Y") }}
+                        </td>
+                        <td>
+                            {{ ticket.PriorityId }}
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="" title="Edit"><i class="fa fa-edit"></i></a>
+                                <a href="{{ path('app_ticket_delete', {'id': ticket.id}) }}" class="" title="Delete" onclick="return confirm('Are you sure you want to delete this ticket?')"><i class="fa fa-trash-o"></i></a>
+                            {% endif %}
 
-        </div>
-    {% endfor %}
+                            {% if not is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_ticket_status', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-check-square-o"> Mark as completed</i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
     </section>
+
+
+    <section class="tickets-mobile">
+        {% for ticket in tickets %}
+            <article class="col ticket-card">
+                <a href="{{ path('app_ticket', {'id': ticket.id}) }}" style="display: block">
+                    <h5>Title</h5>
+                    <p>{{ ticket.title }}</p>
+                    <hr>
+                    <h5>Description</h5>
+                    <p>{{ ticket.description }}</p>
+                    <hr>
+                    <h5>Assigned to</h5>
+                    <p>{{ ticket.TechnicianUserId }}</p>
+                    <hr>
+                    <h5>Priority</h5>
+                    <p>{{ ticket.PriorityId }}</p>
+                    <hr>
+                    <h5>Status</h5>
+                    <p>{{ ticket.StatusId }}</p>
+                    <hr>
+                    <h5>Categories</h5>
+                    <p>
+                        {% for label in ticket.labels %}
+                            {{ label }}
+                        {% endfor %}
+                    </p>
+                    <hr>
+                    <h5>Date</h5>
+                    <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
+                </a>
+            </article>
+        {% endfor %}
+    </section>
+
+
+
+
 
 </main>
 {% endblock %}

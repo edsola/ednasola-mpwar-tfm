@@ -4,7 +4,7 @@
 
 {% block body %}
 <main>
-    <h1>Tickets</h1>
+    <h1>Ticket</h1>
 
     <article>
         <h5>Title</h5>
@@ -34,12 +34,12 @@
 
         <div>
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="btn btn-primary"><i class="fa fa-edit"> Edit</i></a>
+                <a href="{{ path('app_ticket_edit', {'id': ticket.id}) }}" class="btn btn-primary"><i class="fa fa-edit"> Edit</i></a>
                 <a href="{{ path('app_ticket_delete', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-trash-o"> Delete</i></a>
             {% endif %}
 
             {% if not is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-check-square-o"> Mark as completed</i></a>
+                <a href="{{ path('app_ticket_status', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-check-square-o"> Mark as completed</i></a>
             {% endif %}
         </div>
 
