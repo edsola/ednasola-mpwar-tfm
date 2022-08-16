@@ -56,7 +56,18 @@
                             {% endif %}
 
                             {% if not is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('app_ticket_status', {'id': ticket.id}) }}" class="btn btn-danger"><i class="fa fa-check-square-o"> Mark as completed</i></a>
+                                <a href="{{ path('app_ticket_status', {'id': ticket.id}) }}" class="">
+
+                                {% if ticket.StatusId == 'open'%}
+                                    <i class="fa fa-square-o">
+                                    Completed
+                                {% endif %}
+                                {% if ticket.StatusId == 'completed'%}
+                                    <i class="fa fa-check-square-o">
+                                    Uncompleted
+                                {% endif %}
+
+                                </i></a>
                             {% endif %}
                         </td>
                     </tr>
@@ -98,10 +109,5 @@
             </article>
         {% endfor %}
     </section>
-
-
-
-
-
 </main>
 {% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Priority;
+use App\Entity\Status;
 use App\Form\TicketType;
+use App\Repository\StatusRepository;
 use App\Repository\TicketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,5 +82,33 @@ class DashboardController extends AbstractController
             'form' => $form->createView(),
             'errors' => $form->getErrors()
         ]);
+    }
+
+
+
+
+    #[Route('/ticket/status/{id}', name: 'app_ticket_status')]
+    public function ChangeTicketStatus(Request $request, TicketRepository $ticketRepository, StatusRepository $statusRepository): Response
+    {
+        $ticketID = $request->get('id');
+        $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
+
+        $openStatus = $statusRepository->findOneBy(['id' => 1]);
+        $completedStatus = $statusRepository->findOneBy(['id' => 2]);
+
+        $currentStatus = $ticket->getStatusId()->getId();
+
+
+        if ($currentStatus === 1) {
+            $ticket->setStatusId($completedStatus);
+        }
+
+        if ($currentStatus === 2) {
+            $ticket->setStatusId($openStatus);
+        }
+
+        $ticketRepository->add($ticket, true);
+
+        return $this->redirectToRoute('app_dashboard');
     }
 }
