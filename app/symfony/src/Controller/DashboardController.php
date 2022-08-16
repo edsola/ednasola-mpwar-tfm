@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Priority;
-use App\Entity\Status;
 use App\Form\TicketType;
 use App\Repository\StatusRepository;
 use App\Repository\TicketRepository;
@@ -11,20 +9,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
+
 
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
-    public function index(TicketRepository $ticketRepository): Response
+    public function DisplayOpenAndCompletedTickets(TicketRepository $ticketRepository): Response
     {
         $authenticatedUser = $this->getUser();
 
         if ($authenticatedUser->getRoles()[0] === 'ROLE_ADMIN') {
-            $tickets = $ticketRepository->findBy([], ['created_date' => 'DESC']);
+            $tickets = $ticketRepository->findBy(['status_id' => [1,2]], ['created_date' => 'DESC']);
         }
 
         if ($authenticatedUser->getRoles()[0] === 'ROLE_TECHNICIAN') {
-            $tickets = $ticketRepository->findBy(['technician_user_id' => $authenticatedUser], ['created_date' => 'DESC']);
+            $tickets = $ticketRepository->findBy(['technician_user_id' => $authenticatedUser, 'status_id' => [1,2]], ['created_date' => 'DESC']);
         }
 
         return $this->render('dashboard/tickets.html.twig', [
@@ -32,8 +32,28 @@ class DashboardController extends AbstractController
         ]);
     }
 
+    #[Route('/archive', name: 'app_tickets_archived')]
+    public function DisplayClosedTickets(TicketRepository $ticketRepository): Response
+    {
+        $authenticatedUser = $this->getUser();
+
+        if ($authenticatedUser->getRoles()[0] === 'ROLE_ADMIN') {
+            $tickets = $ticketRepository->findBy(['status_id' => 3], ['created_date' => 'DESC']);
+        }
+
+        if ($authenticatedUser->getRoles()[0] === 'ROLE_TECHNICIAN') {
+            $tickets = $ticketRepository->findBy(['technician_user_id' => $authenticatedUser, 'status_id' => [3]], ['created_date' => 'DESC']);
+        }
+
+        return $this->render('dashboard/tickets.html.twig', [
+            'tickets' => $tickets,
+        ]);
+    }
+
+
+
     #[Route('/ticket/{id}', name: 'app_ticket')]
-    public function ShowTicket(Request $request, TicketRepository $ticketRepository): Response
+    public function DisplayTicket(Request $request, TicketRepository $ticketRepository): Response
     {
         $ticketID = $request->get('id');
         $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
@@ -85,8 +105,6 @@ class DashboardController extends AbstractController
     }
 
 
-
-
     #[Route('/ticket/status/{id}', name: 'app_ticket_status')]
     public function ChangeTicketStatus(Request $request, TicketRepository $ticketRepository, StatusRepository $statusRepository): Response
     {
@@ -98,13 +116,31 @@ class DashboardController extends AbstractController
 
         $currentStatus = $ticket->getStatusId()->getId();
 
-
         if ($currentStatus === 1) {
             $ticket->setStatusId($completedStatus);
         }
 
         if ($currentStatus === 2) {
             $ticket->setStatusId($openStatus);
+        }
+
+        $ticketRepository->add($ticket, true);
+
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+    #[Route('/admin/ticket/archive/{id}', name: 'app_ticket_archive')]
+    public function ArchiveTicket(Request $request, TicketRepository $ticketRepository, StatusRepository $statusRepository): Response
+    {
+        $ticketID = $request->get('id');
+        $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
+
+        $closedStatus = $statusRepository->findOneBy(['id' => 3]);
+        $currentStatus = $ticket->getStatusId()->getId();
+
+        if ($currentStatus === 2) {
+            $ticket->setStatusId($closedStatus);
+            $ticket->setCompletedDate(new DateTime());
         }
 
         $ticketRepository->add($ticket, true);

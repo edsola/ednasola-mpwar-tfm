@@ -2,7 +2,7 @@
 
 {% block menu %}
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top">
         <a href="{{ path('app_dashboard') }}" class="navbar-brand">Tickets app</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,6 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a href="{{ path('app_dashboard') }}" class="nav-item nav-link active"><i class="fa fa-tasks"></i> Tickets</a>
+                <a href="{{ path('app_tickets_archived') }}" class="nav-item nav-link"><i class="fa fa-archive"></i> Archive</a>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_create_ticket') }}" class="nav-item nav-link"><i class="fa fa-plus-square"></i> Create ticket</a>

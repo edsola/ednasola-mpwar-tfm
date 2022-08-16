@@ -4,6 +4,7 @@ namespace App\Controller;
 
 date_default_timezone_set("Europe/Madrid");
 
+use App\Entity\Ticket;
 use App\Form\TicketType;
 use App\Repository\StatusRepository;
 use App\Repository\TicketRepository;
@@ -18,7 +19,9 @@ class CreateTicketController extends AbstractController
     #[Route('/admin/create-ticket', name: 'app_create_ticket')]
     public function index(TicketRepository $ticketRepository, Request $request, StatusRepository $statusRepository): Response
     {
-        $form = $this->createForm(TicketType::class);
+        $ticket = new Ticket();
+
+        $form = $this->createForm(TicketType::class, $ticket, ['current_priority' => $ticket->getPriorityId()]);
         $form->handleRequest($request);
         $admin = $this->getUser();
         $openStatus = $statusRepository->findOneBy(['id' => 1]);
@@ -30,7 +33,7 @@ class CreateTicketController extends AbstractController
             $ticket->setStatusId($openStatus);
             $ticketRepository->add($ticket, true);
 
-            //return $this->redirectToRoute('');
+            return $this->redirectToRoute('app_dashboard');
         }
 
         return $this->render('ticket/create.html.twig', [
