@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Form\TicketType;
+use App\Repository\LabelRepository;
+use App\Repository\PriorityRepository;
 use App\Repository\StatusRepository;
 use App\Repository\TicketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +17,23 @@ use DateTime;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
-    public function DisplayOpenAndCompletedTickets(TicketRepository $ticketRepository): Response
+    public function DisplayOpenAndCompletedTickets(TicketRepository $ticketRepository, StatusRepository $statusRepository, PriorityRepository $priorityRepository, LabelRepository $labelRepository, Request $request): Response
     {
+        $status = $request->get('status');
+        $priority = $request->get('priority');
         $authenticatedUser = $this->getUser();
 
+
         if ($authenticatedUser->getRoles()[0] === 'ROLE_ADMIN') {
-            $tickets = $ticketRepository->findBy(['status_id' => [1,2]], ['created_date' => 'DESC']);
+            if ($status) {
+                $tickets = $ticketRepository->findBy(['status_id' => $status], ['created_date' => 'DESC']);
+            }
+            if ($priority) {
+                $tickets = $ticketRepository->findBy(['priority_id' => $priority, 'status_id' => [1,2]], ['created_date' => 'DESC']);
+            }
+            if (!$status && !$priority) {
+                $tickets = $ticketRepository->findBy(['status_id' => [1,2]], ['created_date' => 'DESC']);
+            }
         }
 
         if ($authenticatedUser->getRoles()[0] === 'ROLE_TECHNICIAN') {
@@ -29,6 +42,9 @@ class DashboardController extends AbstractController
 
         return $this->render('dashboard/tickets.html.twig', [
             'tickets' => $tickets,
+            'status' => $statusRepository->findBy(['id' => [1,2]]),
+            'priority' => $priorityRepository->findAll(),
+            'label' => $labelRepository->findAll()
         ]);
     }
 
@@ -147,4 +163,6 @@ class DashboardController extends AbstractController
 
         return $this->redirectToRoute('app_dashboard');
     }
+
+
 }

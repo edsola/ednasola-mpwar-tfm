@@ -5,6 +5,22 @@
 {% block body %}
 <main>
     <h1>Tickets</h1>
+    {% if app.request.get('_route') == 'app_dashboard' %}
+        <section class="filters">
+            <div class="btn-group status-filter">
+                {% for item in status %}
+                    <a href="{{ path('app_dashboard', {'status': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
+                {% endfor %}
+            </div>
+            <div class="btn-group priority-filter">
+                {% for item in priority %}
+                    <a href="{{ path('app_dashboard', {'priority': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+
+
     <section class="tickets tickets-desktop row">
             <table class="table">
                 <thead class="thead-light">
