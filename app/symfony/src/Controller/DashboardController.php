@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+date_default_timezone_set("Europe/Madrid");
+
+use App\Form\CommentType;
 use App\Form\TicketType;
+use App\Repository\CommentRepository;
 use App\Repository\LabelRepository;
 use App\Repository\PriorityRepository;
 use App\Repository\StatusRepository;
@@ -22,18 +26,25 @@ class DashboardController extends AbstractController
         $status = $request->get('status');
         $priority = $request->get('priority');
         $authenticatedUser = $this->getUser();
+        $tickets = [];
+
+        $filters = [];
 
 
         if ($authenticatedUser->getRoles()[0] === 'ROLE_ADMIN') {
             if ($status) {
-                $tickets = $ticketRepository->findBy(['status_id' => $status], ['created_date' => 'DESC']);
+                //$tickets = $ticketRepository->findBy(['status_id' => $status], ['created_date' => 'DESC']);
+                $filters = ['status_id' => $status];
             }
             if ($priority) {
-                $tickets = $ticketRepository->findBy(['priority_id' => $priority, 'status_id' => [1,2]], ['created_date' => 'DESC']);
+                //$tickets += $ticketRepository->findBy(['priority_id' => $priority, 'status_id' => [1,2]], ['created_date' => 'DESC']);
+                $filters += ['priority_id' => $priority, 'status_id' => [1,2]];
             }
             if (!$status && !$priority) {
-                $tickets = $ticketRepository->findBy(['status_id' => [1,2]], ['created_date' => 'DESC']);
+                //$tickets += $ticketRepository->findBy(['status_id' => [1,2]], ['created_date' => 'DESC']);
+                $filters = ['status_id' => [1,2]];
             }
+            $tickets = $ticketRepository->findBy($filters, ['created_date' => 'DESC']);
         }
 
         if ($authenticatedUser->getRoles()[0] === 'ROLE_TECHNICIAN') {
@@ -69,13 +80,30 @@ class DashboardController extends AbstractController
 
 
     #[Route('/ticket/{id}', name: 'app_ticket')]
-    public function DisplayTicket(Request $request, TicketRepository $ticketRepository): Response
+    public function DisplayTicket(Request $request, TicketRepository $ticketRepository, CommentRepository $commentRepository): Response
     {
         $ticketID = $request->get('id');
         $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
+        $comments = $ticket->getComments();
+        $authenticatedUser = $this->getUser();
+
+        $commentForm = $this->createForm(CommentType::class);
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment = $commentForm->getData();
+            $comment->setDate(new DateTime());
+            $comment->setUser($authenticatedUser);
+            $comment->setTicket($ticket);
+
+            $commentRepository->add($comment, true);
+        }
 
         return $this->render('dashboard/ticket.html.twig', [
             'ticket' => $ticket,
+            'comments' => $comments,
+            'commentForm' => $commentForm->createView(),
+            'errors' => $commentForm->getErrors()
         ]);
     }
 

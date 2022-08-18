@@ -45,5 +45,22 @@
 
         <hr>
     </article>
+
+    <section class="ticketComments">
+        <h3>Comments</h3>
+        <div>
+            {% for comment in comments %}
+                <div>
+                    <p class="commentInfo"><i class="fa fa-user"></i> {{ comment.user.name | capitalize }} {{ comment.user.surname | capitalize }} (<a href="mailto:{{ comment.user.email }}" class="text-muted">{{ comment.user.email }}</a>) | <i class="fa fa-clock-o"></i> {{ comment.date | date("d/m/Y H:i:s") }}</p>
+                    {{ comment.comment }}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        {{ form_start(commentForm, {'attr': {'class': 'form-post'}}) }}
+            {{ form_row(commentForm.comment, {'attr': {'class': 'form-control'} }) }}
+            {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_end(commentForm) }}
+    </section>
 </main>
 {% endblock %}
