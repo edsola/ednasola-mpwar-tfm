@@ -1,0 +1,59 @@
+* {
+    font-family: "Helvetica", sans-serif;
+}
+
+main {
+    margin: 5em auto;
+    max-width: 1200px;
+    width: 95%;
+    font: 18px/1.5 sans-serif;
+    color: #3B3270;
+    height: 100vh;
+}
+
+header {
+    background-color: #3B3270;
+}
+
+
+nav {
+
+}
+
+
+@media (min-width: 600px) {
+    .tickets-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .tickets-desktop {
+        display: none;
+    }
+}
+
+.dropdown {
+    position: relative;
+}
+
+/*
+.ticket-card {
+    background-color: #F8F9FF;
+    padding: 30px;
+    border-radius: 14px;
+    border-top: 15px solid green;
+}
+
+.ticket-card a{
+    text-decoration: none;
+}
+
+.ticket-card h5{
+    font-weight: bold;
+}
+
+.tickets-grid {
+    grid-gap: 30px 30px;
+    margin-bottom: 30px;
+}*/

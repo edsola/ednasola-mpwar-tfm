@@ -39,6 +39,17 @@ class TicketRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByStatus($statusId): array
+    {
+       return $this->createQueryBuilder('t')
+            ->andWhere('t.status_id = :val')
+            ->setParameter('val', $statusId)
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Ticket[] Returns an array of Ticket objects
 //     */
