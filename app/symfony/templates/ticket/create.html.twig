@@ -3,7 +3,6 @@
 {% block title %}Create ticket{% endblock %}
 
 {% block body %}
-<main>
     <h1>Create new ticket</h1>
 
     {{ form_start(form, {'attr': {'class': 'form-post'}}) }}
@@ -23,5 +22,4 @@
         {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
     {{ form_end(form) }}
 
-</main>
 {% endblock %}

@@ -1,0 +1,174 @@
+header {
+    background-color: #3B3270;
+    transition: all 0.4s ease;
+    top: 0;
+    left: 0;
+}
+
+header .nav-list li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+header .brand {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+header .brand i {
+    font-size: 2em;
+    color: #ffffff;
+    height: 50px;
+    min-width: 70px;
+    text-align: center;
+    line-height: 50px;
+}
+
+header .brand .brand-name {
+    font-size: 1.6em;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s ease;
+    transition-delay: 0.1s;
+}
+
+header .nav-list li {
+    position: relative;
+    list-style: none;
+    transition: all 0.4s ease;
+}
+
+header .nav-list li i {
+    height: 50px;
+    min-width: 70px;
+    text-align: center;
+    line-height: 50px;
+    color: #ffffff;
+    font-size: 1.3em;
+    transition: all 0.3s ease;
+}
+
+header .nav-list li a.active,
+header .nav-list li a:focus,
+header .nav-list li a:hover {
+    background-color: #6e63ad !important;
+    color: #ffffff;
+}
+
+header .nav-list li a {
+    display: flex;
+    align-items: center;
+}
+
+header .nav-list .nav-item {
+    font-size: 1.2em;
+    font-weight: 300;
+    transition: all 0.4s ease;
+}
+
+
+
+
+@media (min-width: 600px) {
+    .tickets-mobile {
+        display: none;
+    }
+
+    header {
+        width: 270px;
+        height: 100vh;
+        position: fixed;
+        z-index: 100;
+    }
+
+    header.close {
+        width: 70px;
+    }
+
+    header.close .brand .brand-name {
+        transition-delay: 0s;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    header .nav-list {
+        height: 100%;
+        overflow: auto;
+    }
+
+    header .nav-list li i {
+        height: 60px;
+        line-height: 60px;
+    }
+
+    header.close .nav-list .nav-item {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    header.close .nav-list .closed-items {
+        font-size: 0;
+    }
+
+    header.close .nav-list li a:hover .closed-items{
+        display:block;
+    }
+
+    main {
+        position: relative;
+        height: 100vh;
+        margin-left: 270px;
+        width: calc(100vw - 270px);
+        padding: 0 100px 0 100px;
+        transition: all 0.4s ease;
+    }
+
+    header.close ~ main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+    }
+
+    main .content .icon-menu {
+        height: 95px;
+        display: flex;
+        align-items: center;
+        color: #3B3270;
+        font-size: 35px;
+        margin-left: -70px;
+        position: fixed;
+        clear: left;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+    .tickets-desktop {
+        display: none;
+    }
+
+    header {
+        padding-top: 10px;
+    }
+
+    main .content .icon-menu {
+
+        top: 30px;
+        right: 15px;
+        color: #ffffff;
+        position: absolute;
+        z-index: 1;
+        font-size: 35px;
+    }
+
+    header.close {
+        height: 110px;
+    }
+
+    header.close .nav-list {
+        opacity: 0;
+    }
+}

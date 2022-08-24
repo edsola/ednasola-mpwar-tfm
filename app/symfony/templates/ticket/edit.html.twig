@@ -3,7 +3,6 @@
 {% block title %}Edit ticket{% endblock %}
 
 {% block body %}
-    <main>
         <h1>Edit ticket</h1>
 
         {{ form_start(form, {'attr': {'class': 'form-post'}}) }}
@@ -40,5 +39,4 @@
         {{ form_row(form.submit, {'label': 'Save', 'attr': {'class': 'btn btn-primary'}}) }}
         {{ form_end(form) }}
 
-    </main>
 {% endblock %}

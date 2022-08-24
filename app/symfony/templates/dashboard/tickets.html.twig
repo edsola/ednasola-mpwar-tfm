@@ -4,41 +4,40 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-<main>
-    <h1>Tickets</h1>
-    {% if app.request.get('_route') == 'app_dashboard' %}
-        <section class="filters">
-            <div class="btn-group status-filter">
-                {% for item in status %}
-                    <a href="{{ path('app_dashboard', {'status': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
-                {% endfor %}
-            </div>
-            <div class="btn-group priority-filter">
-                {% for item in priority %}
-                    <a href="{{ path('app_dashboard', {'priority': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
-                {% endfor %}
-            </div>
-            <div class="btn-group label-filter">
-                {% for item in label %}
-                    <label><input type="checkbox" id="label{{ item.id }}" value="{{ item.name }}"> {{ item.name | capitalize }}</label><br>
-                {% endfor %}
-            </div>
-        </section>
-    {% endif %}
+        <h1>Tickets</h1>
+        {% if app.request.get('_route') == 'app_tickets' %}
+            <section class="filters">
+                <div class="btn-group status-filter">
+                    {% for item in status %}
+                        <a href="{{ path('app_tickets', {'status': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
+                    {% endfor %}
+                </div>
+                <div class="btn-group priority-filter">
+                    {% for item in priority %}
+                        <a href="{{ path('app_tickets', {'priority': item.id}) }}" class="btn btn-secondary btn-filter btn-sm">{{ item.name | capitalize }}</a>
+                    {% endfor %}
+                </div>
+                <div class="btn-group label-filter">
+                    {% for item in label %}
+                        <label><input type="checkbox" id="label{{ item.id }}" value="{{ item.name }}"> {{ item.name | capitalize }}</label><br>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
 
 
-    <section class="tickets tickets-desktop row">
-            <table id="table">
+        <section class="tickets tickets-desktop row">
+            <table id="table" style="width:100%">
                 <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Task</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Assigned to</th>
-                        <th scope="col">Categories</th>
-                        <th scope="col">Created</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                <tr>
+                    <th scope="col" style="width: 30%">Task</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Assigned to</th>
+                    <th scope="col">Categories</th>
+                    <th scope="col">Created</th>
+                    <th scope="col" class="th-lg">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
                 </thead>
 
                 <tbody>
@@ -49,7 +48,7 @@
                             <p class="text-muted">
                                 {{ ticket.description | slice(0, 70) | raw }}
                                 {% if ticket.description | length > 70 %}
-                                     ...
+                                    ...
                                 {% endif %}
                             </p>
                         </td>
@@ -78,46 +77,45 @@
                 {% endfor %}
                 </tbody>
             </table>
-    </section>
+        </section>
 
 
-    <section class="tickets-mobile">
-        {% for ticket in tickets %}
-            <article class="col ticket-card">
-                <h5>Task</h5>
-                <a href="{{ path('app_ticket', {'id': ticket.id}) }}"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
-                <p class="text-muted">
-                    {{ ticket.description | slice(0, 70) | raw }}
-                    {% if ticket.description | length > 70 %}
-                        ...
-                    {% endif %}
-                </p>
+        <section class="tickets-mobile">
+            {% for ticket in tickets %}
+                <article class="col ticket-card">
+                    <h5>Task</h5>
+                    <a href="{{ path('app_ticket', {'id': ticket.id}) }}"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
+                    <p class="text-muted">
+                        {{ ticket.description | slice(0, 70) | raw }}
+                        {% if ticket.description | length > 70 %}
+                            ...
+                        {% endif %}
+                    </p>
 
-                <h5>Priority</h5>
-                <p>{{ ticket.PriorityId }}</p>
+                    <h5>Priority</h5>
+                    <p>{{ ticket.PriorityId }}</p>
 
-                <h5>Assigned to</h5>
-                <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
-                <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
+                    <h5>Assigned to</h5>
+                    <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
+                    <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
 
-                <h5>Categories</h5>
-                <p>
-                    {% for label in ticket.labels %}
-                        {{ label }}
-                    {% endfor %}
-                </p>
+                    <h5>Categories</h5>
+                    <p>
+                        {% for label in ticket.labels %}
+                            {{ label }}
+                        {% endfor %}
+                    </p>
 
-                <h5>Created</h5>
-                <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
+                    <h5>Created</h5>
+                    <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
 
-                <h5>Status</h5>
-                <p>{{ ticket.StatusId }}</p>
+                    <h5>Status</h5>
+                    <p>{{ ticket.StatusId }}</p>
 
-                <h5>Actions</h5>
-                {{ macros.showTicketActions(ticket) }}
-                <hr>
-            </article>
-        {% endfor %}
-    </section>
-</main>
+                    <h5>Actions</h5>
+                    {{ macros.showTicketActions(ticket) }}
+                    <hr>
+                </article>
+            {% endfor %}
+        </section>
 {% endblock %}

@@ -4,7 +4,6 @@
 {% block title %}Tickets{% endblock %}
 
 {% block body %}
-<main>
     <h1>Ticket</h1>
 
     <article>
@@ -44,7 +43,7 @@
         <div>
             {% for comment in comments %}
                 <div>
-                    <p class="commentInfo"><i class="fa fa-user"></i> {{ comment.user.name | capitalize }} {{ comment.user.surname | capitalize }} (<a href="mailto:{{ comment.user.email }}" class="text-muted">{{ comment.user.email }}</a>) | <i class="fa fa-clock-o"></i> {{ comment.date | date("d/m/Y H:i:s") }}</p>
+                    <p class="commentInfo"><i class="bi bi-person-fill"></i> {{ comment.user.name | capitalize }} {{ comment.user.surname | capitalize }} (<a href="mailto:{{ comment.user.email }}" class="text-muted">{{ comment.user.email }}</a>) | <i class="bi bi-clock-fill"></i> {{ comment.date | date("d/m/Y H:i:s") }}</p>
                     {{ comment.comment  | nl2br }}
                 </div>
                 <hr>
@@ -55,5 +54,4 @@
             {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
         {{ form_end(commentForm) }}
     </section>
-</main>
 {% endblock %}

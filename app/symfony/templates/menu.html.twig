@@ -1,26 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block menu %}
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top">
-        <a href="{{ path('app_tickets') }}" class="navbar-brand">Tickets app</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <header>
+        <nav class="main-navbar" id="sidebar-menu">
+            <div class="brand mt-3">
+                <i class="bi bi-diamond-half"></i>
+                <a href="{{ path('app_tickets') }}" class="brand-name">TicketsApp</a>
+            </div>
 
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a href="{{ path('app_tickets') }}" class="nav-item nav-link {% if app.request.get('_route') == 'app_tickets' %} active {% endif %}"><i class="fa fa-tasks"></i> Tickets</a>
-                <a href="{{ path('app_tickets_archived') }}" class="nav-item nav-link {% if app.request.get('_route') == 'app_tickets_archived' %} active {% endif %}"><i class="fa fa-archive"></i> Archive</a>
-
+            <ul class="nav-list pt-5">
+                <li>
+                    <a href="{{ path('app_tickets') }}" class="{% if app.request.get('_route') == 'app_tickets' %}active{% endif %}">
+                        <i class="bi bi-card-list"></i>
+                        <span class="nav-item">Tickets</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_tickets_archived') }}" class="{% if app.request.get('_route') == 'app_tickets_archived' %}active{% endif %}">
+                        <i class="bi bi-archive"></i>
+                        <span class="nav-item">Archive</span>
+                    </a>
+                </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_create_ticket') }}" class="nav-item nav-link {% if app.request.get('_route') == 'app_create_ticket' %} active {% endif %}"><i class="fa fa-plus-square"></i> Create ticket</a>
-                    <a href="{{ path('app_register') }}" class="nav-item nav-link {% if app.request.get('_route') == 'app_register' %} active {% endif %}"><i class="fa fa-user-plus"></i> Register</a>
+                    <li>
+                        <a href="{{ path('app_create_ticket') }}" class="{% if app.request.get('_route') == 'app_create_ticket' %}active{% endif %}">
+                            <i class="bi bi-plus-circle"></i>
+                            <span class="nav-item">Create ticket</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_register') }}" class="{% if app.request.get('_route') == 'app_register' %}active{% endif %}">
+                            <i class="bi bi-person-plus"></i>
+                            <span class="nav-item">Register</span>
+                        </a>
+                    </li>
                 {% endif %}
 
-                <a href="{{ path('app_logout') }}" class="nav-item nav-link">Log out</a>
-            </div>
-        </div>
-    </nav>
-</header>
+                <li>
+                    <a href="{{ path('app_logout') }}">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <span class="nav-item">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 {% endblock %}
