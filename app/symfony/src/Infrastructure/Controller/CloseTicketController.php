@@ -23,7 +23,6 @@ class CloseTicketController extends AbstractController
 
         if ($currentStatus === 2) {
             $ticket->setStatusId($closedStatus);
-            $ticket->setCompletedDate(new DateTime());
         }
 
         $ticketRepository->add($ticket, true);

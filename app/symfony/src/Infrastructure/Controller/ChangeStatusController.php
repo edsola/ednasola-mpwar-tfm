@@ -4,6 +4,7 @@ namespace App\Infrastructure\Controller;
 
 use App\Infrastructure\ORM\Doctrine\Repository\StatusRepository;
 use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class ChangeStatusController extends AbstractController
 
         if ($currentStatus === 2) {
             $ticket->setStatusId($openStatus);
+            $ticket->setCompletedDate(new DateTime());
         }
 
         $ticketRepository->add($ticket, true);
