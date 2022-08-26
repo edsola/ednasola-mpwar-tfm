@@ -6,8 +6,24 @@
 {% block body %}
     <h1>Technicians</h1>
 
-    {% for technician in technicians %}
-    {{ technician.roles[0] }}
-    {% endfor %}
+    <div class="row">
+        {% for technician in technicians %}
+        <article>
+            <p class="technician-name">{{ technician.name | capitalize }}</p>
+            <a href="mailto:{{ technician.email }}"><p>{{ technician.email }}</p></a>
+
+            <h5>Opened tickets</h5>
+            <p>{{ technician.openTickets | length }}</p>
+
+            <h5>Completed tickets</h5>
+            <p>{{ technician.completedTickets | length }}</p>
+
+            <h5>Average time to complete tickets</h5>
+            <p>{{ technician.averageTime }}</p>
+        </article>
+        {% endfor %}
+    </div>
+
+
 
 {% endblock %}
