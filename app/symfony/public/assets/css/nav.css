@@ -1,5 +1,5 @@
 header {
-    background-color: #3B3270;
+    background: linear-gradient(0deg,  var(--secondary-color) 9%,  var(--primary-color) 100%);
     transition: all 0.4s ease;
     top: 0;
     left: 0;
@@ -54,7 +54,7 @@ header .nav-list li i {
 header .nav-list li a.active,
 header .nav-list li a:focus,
 header .nav-list li a:hover {
-    background-color: #6e63ad !important;
+    background-color: var(--primary-color);
     color: #ffffff;
 }
 
@@ -135,7 +135,7 @@ header .nav-list .nav-item {
         height: 95px;
         display: flex;
         align-items: center;
-        color: #3B3270;
+        color: var(--primary-color);
         font-size: 35px;
         margin-left: -70px;
         position: fixed;
