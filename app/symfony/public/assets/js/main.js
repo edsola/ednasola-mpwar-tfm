@@ -14,6 +14,11 @@ function closeMainMenu() {
     }
 }
 
+let table = new DataTable('.tickets-table', {
+    // options
+});
+
+
 
 
 
