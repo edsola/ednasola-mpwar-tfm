@@ -3,7 +3,7 @@
 namespace App\Infrastructure\ORM\Doctrine\Repository;
 
 use App\Domain\Repository\StatusRepositoryInterface;
-use App\Infrastructure\ORM\Doctrine\Entity\Status;
+use App\Domain\Entity\Status;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

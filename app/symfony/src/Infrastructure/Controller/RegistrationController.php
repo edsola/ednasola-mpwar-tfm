@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Infrastructure\ORM\Doctrine\Entity\User;
+use App\Domain\Entity\User;
+use App\Domain\Repository\UserRepositoryInterface;
 use App\Infrastructure\Form\RegistrationFormType;
-use App\Infrastructure\ORM\Doctrine\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/admin/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserRepositoryInterface $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_dashboard');
+            return $this->redirectToRoute('app_tickets');
         }
 
         return $this->render('registration/register.html.twig', [

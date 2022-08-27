@@ -4,10 +4,10 @@ namespace App\Infrastructure\Controller;
 
 date_default_timezone_set("Europe/Madrid");
 
-use App\Infrastructure\ORM\Doctrine\Repository\LabelRepository;
-use App\Infrastructure\ORM\Doctrine\Repository\PriorityRepository;
-use App\Infrastructure\ORM\Doctrine\Repository\StatusRepository;
-use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
+use App\Domain\Repository\LabelRepositoryInterface;
+use App\Domain\Repository\PriorityRepositoryInterface;
+use App\Domain\Repository\StatusRepositoryInterface;
+use App\Domain\Repository\TicketRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketsController extends AbstractController
 {
     #[Route('/', name: 'app_tickets')]
-    public function index(TicketRepository $ticketRepository, StatusRepository $statusRepository, PriorityRepository $priorityRepository, LabelRepository $labelRepository, Request $request): Response
+    public function index(TicketRepositoryInterface $ticketRepository, StatusRepositoryInterface $statusRepository, PriorityRepositoryInterface $priorityRepository, LabelRepositoryInterface $labelRepository, Request $request): Response
     {
         $status = $request->get('status');
         $priority = $request->get('priority');

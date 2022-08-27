@@ -2,13 +2,23 @@
 
 namespace App\Domain\Entity;
 
+use App\Infrastructure\ORM\Doctrine\Repository\PriorityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: PriorityRepository::class)]
 class Priority
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
     private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'priority_id', targetEntity: Ticket::class)]
     private Collection $tickets;
 
     public function __construct()

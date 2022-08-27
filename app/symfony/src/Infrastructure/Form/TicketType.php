@@ -2,10 +2,10 @@
 
 namespace App\Infrastructure\Form;
 
-use App\Infrastructure\ORM\Doctrine\Entity\Label;
-use App\Infrastructure\ORM\Doctrine\Entity\Priority;
-use App\Infrastructure\ORM\Doctrine\Entity\Ticket;
-use App\Infrastructure\ORM\Doctrine\Entity\User;
+use App\Domain\Entity\Label;
+use App\Domain\Entity\Priority;
+use App\Domain\Entity\Ticket;
+use App\Domain\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

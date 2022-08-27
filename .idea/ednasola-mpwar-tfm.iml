@@ -5,6 +5,8 @@
       <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Entity" />
       <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Form" />
       <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Controller" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Repository" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Infrastructure/ORM/Doctrine/Entity" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

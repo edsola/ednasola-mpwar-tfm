@@ -2,17 +2,16 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
+use App\Domain\Repository\TicketRepositoryInterface;
 use App\Infrastructure\ORM\Doctrine\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class TechniciansController extends AbstractController
 {
     #[Route('/admin/technicians', name: 'app_technicians')]
-    public function index(UserRepository $userRepository, TicketRepository $ticketRepository, SerializerInterface $serializer): Response
+    public function index(UserRepository $userRepository, TicketRepositoryInterface $ticketRepository): Response
     {
         $technicians = $userRepository->findByRole('ROLE_TECHNICIAN');
         $techniciansResult = [];
@@ -31,6 +30,7 @@ class TechniciansController extends AbstractController
             }
 
             $user = [
+                'id' => $technician->getID(),
                 'name' => $technician->getName() . ' ' . $technician->getSurname(),
                 'email' => $technician->getEmail(),
                 'openTickets' => $openTickets,

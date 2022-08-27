@@ -2,21 +2,52 @@
 
 namespace App\Domain\Entity;
 
+use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: TicketRepository::class)]
 class Ticket
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
     private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $title = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created_date = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $completed_date = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $technician_user_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Priority $priority_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'tickets')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Status $status_id = null;
+
+    #[ORM\ManyToMany(targetEntity: Label::class, inversedBy: 'tickets')]
     private Collection $labels;
+
+    #[ORM\ManyToOne(inversedBy: 'adminTickets')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $admin_user_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
     public function __construct()
@@ -179,11 +210,4 @@ class Ticket
 
         return $this;
     }
-
-    public static function CreateTicket(int $id, string $title, string $description, \DateTimeInterface $created_date, \DateTimeInterface $completed_date, User $technician_user, Priority $priority, Status $status, array $labels, User $admin_user, array $comments): Ticket
-    {
-        $ticket = new self($id, $title, $description, $created_date, $completed_date, $technician_user, $priority, $status, $labels, $admin_user, $comments);
-        return $ticket;
-    }
-
 }

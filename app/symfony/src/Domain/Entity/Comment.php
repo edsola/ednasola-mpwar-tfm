@@ -2,12 +2,30 @@
 
 namespace App\Domain\Entity;
 
+use App\Infrastructure\ORM\Doctrine\Repository\CommentRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
     private ?int $id = null;
+
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Ticket $ticket = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     public function getId(): ?int

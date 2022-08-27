@@ -2,13 +2,23 @@
 
 namespace App\Domain\Entity;
 
+use App\Infrastructure\ORM\Doctrine\Repository\StatusRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity(repositoryClass: StatusRepository::class)]
 class Status
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
     private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'status_id', targetEntity: Ticket::class)]
     private Collection $tickets;
 
     public function __construct()

@@ -2,31 +2,48 @@
 
 namespace App\Domain\Entity;
 
+use App\Infrastructure\ORM\Doctrine\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
+#[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column()]
     private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
+
+    #[ORM\Column]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
+    #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
+    #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    #[ORM\OneToMany(mappedBy: 'technician_user_id', targetEntity: Ticket::class)]
     private Collection $tickets;
 
+    #[ORM\OneToMany(mappedBy: 'admin_user_id', targetEntity: Ticket::class)]
     private Collection $adminTickets;
 
     public function __construct()

@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Form;
 
-use App\Infrastructure\ORM\Doctrine\Entity\User;
+use App\Domain\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

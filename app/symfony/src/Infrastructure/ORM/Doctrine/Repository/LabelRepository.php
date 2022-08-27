@@ -3,7 +3,7 @@
 namespace App\Infrastructure\ORM\Doctrine\Repository;
 
 use App\Domain\Repository\LabelRepositoryInterface;
-use App\Infrastructure\ORM\Doctrine\Entity\Label;
+use App\Domain\Entity\Label;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

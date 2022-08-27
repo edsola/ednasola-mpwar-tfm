@@ -4,7 +4,7 @@ namespace App\Infrastructure\Controller;
 
 date_default_timezone_set("Europe/Madrid");
 
-use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
+use App\Domain\Repository\TicketRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArchiveController extends AbstractController
 {
     #[Route('/archive', name: 'app_tickets_archived')]
-    public function index(TicketRepository $ticketRepository): Response
+    public function index(TicketRepositoryInterface $ticketRepository): Response
     {
         $authenticatedUser = $this->getUser();
 

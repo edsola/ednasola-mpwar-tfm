@@ -2,9 +2,8 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Infrastructure\ORM\Doctrine\Repository\StatusRepository;
-use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
-use DateTime;
+use App\Domain\Repository\StatusRepositoryInterface;
+use App\Domain\Repository\TicketRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CloseTicketController extends AbstractController
 {
-    #[Route('/admin/ticket/archive/{id}', name: 'app_ticket_archive')]
-    public function ArchiveTicket(Request $request, TicketRepository $ticketRepository, StatusRepository $statusRepository): Response
+    #[Route('/admin/close-ticket/{id}', name: 'app_ticket_archive')]
+    public function ArchiveTicket(Request $request, TicketRepositoryInterface $ticketRepository, StatusRepositoryInterface $statusRepository): Response
     {
         $ticketID = $request->get('id');
         $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);

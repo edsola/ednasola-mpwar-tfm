@@ -3,7 +3,7 @@
 namespace App\Infrastructure\ORM\Doctrine\Repository;
 
 use App\Domain\Repository\PriorityRepositoryInterface;
-use App\Infrastructure\ORM\Doctrine\Entity\Priority;
+use App\Domain\Entity\Priority;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

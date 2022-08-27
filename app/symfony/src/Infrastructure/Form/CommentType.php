@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Form;
 
-use App\Infrastructure\ORM\Doctrine\Entity\Comment;
+use App\Domain\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

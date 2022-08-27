@@ -3,7 +3,7 @@
 namespace App\Infrastructure\ORM\Doctrine\Repository;
 
 use App\Domain\Repository\CommentRepositoryInterface;
-use App\Infrastructure\ORM\Doctrine\Entity\Comment;
+use App\Domain\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

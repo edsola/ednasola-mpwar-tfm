@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Infrastructure\ORM\Doctrine\Repository\StatusRepository;
-use App\Infrastructure\ORM\Doctrine\Repository\TicketRepository;
+use App\Domain\Repository\StatusRepositoryInterface;
+use App\Domain\Repository\TicketRepositoryInterface;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,8 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChangeStatusController extends AbstractController
 {
-    #[Route('/ticket/status/{id}', name: 'app_ticket_status')]
-    public function ChangeTicketStatus(Request $request, TicketRepository $ticketRepository, StatusRepository $statusRepository): Response
+    #[Route('/change-status/{id}', name: 'app_ticket_status')]
+    public function ChangeTicketStatus(Request $request, TicketRepositoryInterface $ticketRepository, StatusRepositoryInterface $statusRepository): Response
     {
         $ticketID = $request->get('id');
         $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
