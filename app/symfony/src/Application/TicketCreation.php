@@ -2,22 +2,26 @@
 
 namespace App\Application;
 
-use App\Domain\Entity\Priority;
-use App\Domain\Entity\Status;
+date_default_timezone_set("Europe/Madrid");
+
 use App\Domain\Entity\Ticket;
 use App\Domain\Entity\User;
 use App\Domain\Repository\TicketRepositoryInterface;
-use Cassandra\Uuid;
+use DateTime;
 
 class TicketCreation
 {
-    public function __construct(private TicketRepositoryInterface $ticketRepository)
+    public function __construct(private TicketRepositoryInterface $ticketRepository, private StatusSearchByCriteria $statusSearchByCriteria)
     {
     }
 
-    public function __invoke(int $id, string $title, string $description, \DateTimeInterface $created_date, \DateTimeInterface $completed_date, User $technician_user, Priority $priority, Status $status, array $labels, User $admin_user, array $comments)
+    public function create(Ticket $ticket, User $admin)
     {
-        $ticket = Ticket::CreateTicket($id, $title, $description, $created_date, $completed_date, $technician_user, $priority, $status, $labels, $admin_user, $comments);
-        $this->ticketRepository->add($ticket);
+        $openStatus = $this->statusSearchByCriteria->search(['id' => 1]);
+        $ticket->setCreatedDate(new DateTime());
+        $ticket->setAdminUserId($admin);
+        $ticket->setStatusId($openStatus);
+
+        $this->ticketRepository->add($ticket, true);
     }
 }
