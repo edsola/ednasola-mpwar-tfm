@@ -7,7 +7,7 @@ use App\Domain\Repository\StatusRepositoryInterface;
 
 class StatusSearchByCriteria
 {
-    public function __construct(private readonly StatusRepositoryInterface $repository)
+    public function __construct(private StatusRepositoryInterface $repository)
     {
     }
 

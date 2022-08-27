@@ -12,8 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreateTicketController extends AbstractController
 {
-    public function __construct(private TicketCreation $ticketCreation, private TicketEmptyCreation $ticketEmptyCreation)
-    {
+    public function __construct(
+        private TicketCreation $ticketCreation,
+        private TicketEmptyCreation $ticketEmptyCreation
+    ) {
     }
 
     #[Route('/admin/create-ticket', name: 'app_ticket_create')]
@@ -25,7 +27,7 @@ class CreateTicketController extends AbstractController
         $form = $this->createForm(TicketType::class, $ticket, ['current_priority' => $ticket->getPriorityId()]);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $ticket = $form->getData();
             $this->ticketCreation->create($ticket, $admin);
 

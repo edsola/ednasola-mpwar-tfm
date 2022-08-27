@@ -15,7 +15,7 @@ class TicketCreation
     {
     }
 
-    public function create(Ticket $ticket, User $admin)
+    public function create(Ticket $ticket, User $admin): void
     {
         $openStatus = $this->statusSearchByCriteria->search(['id' => 1]);
         $ticket->setCreatedDate(new DateTime());
