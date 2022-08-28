@@ -1,0 +1,15 @@
+{% extends 'menu.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <h1>Categories</h1>
+
+    <div class="row label-form">
+        {{ form_start(labelForm, {'attr': {'class': 'form-post'}}) }}
+            {{ form_row(labelForm.name, {'attr': {'class': 'form-control'} }) }}
+            {{ form_row(labelForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_end(labelForm) }}
+    </div>
+
+{% endblock %}
