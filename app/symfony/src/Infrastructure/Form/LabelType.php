@@ -15,7 +15,8 @@ class LabelType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr' => ['maxlength' => 15]
+                'attr' => ['maxlength' => 15],
+                'label' => false
             ])
             ->add('submit', SubmitType::class, ['label' => 'Create']);
     }
