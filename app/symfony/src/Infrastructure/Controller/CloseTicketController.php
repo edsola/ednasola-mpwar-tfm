@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Application\TicketClose;
+use App\Application\Update\CloseTicket;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CloseTicketController extends AbstractController
 {
-    public function __construct(private TicketClose $ticketClose)
+    public function __construct(private CloseTicket $closeTicket)
     {
     }
 
@@ -18,7 +18,7 @@ class CloseTicketController extends AbstractController
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');
-        $this->ticketClose->close($ticketID);
+        $this->closeTicket->close($ticketID);
 
         return $this->redirectToRoute('app_tickets');
     }

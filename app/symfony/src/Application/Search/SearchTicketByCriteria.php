@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Search;
 
 use App\Domain\Entity\Ticket;
 use App\Domain\Repository\TicketRepositoryInterface;
 
-class TicketSearchByCriteria
+class SearchTicketByCriteria
 {
     public function __construct(private TicketRepositoryInterface $ticketRepository)
     {

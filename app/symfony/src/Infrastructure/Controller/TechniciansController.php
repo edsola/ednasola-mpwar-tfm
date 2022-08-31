@@ -10,6 +10,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TechniciansController extends AbstractController
 {
+    public function __construct()
+    {
+    }
+
     #[Route('/admin/technicians', name: 'app_technicians')]
     public function index(UserRepository $userRepository, TicketRepositoryInterface $ticketRepository): Response
     {

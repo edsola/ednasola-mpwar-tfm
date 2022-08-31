@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Update;
 
+use App\Application\Search\SearchStatusByCriteria;
+use App\Application\Search\SearchTicketByCriteria;
 use App\Domain\Repository\TicketRepositoryInterface;
 
-class TicketClose
+class CloseTicket
 {
     public function __construct(
-        private TicketSearchByCriteria $ticketSearchByCriteria,
-        private StatusSearchByCriteria $statusSearchByCriteria,
+        private SearchTicketByCriteria $searchTicketByCriteria,
+        private SearchStatusByCriteria $searchStatusByCriteria,
         private TicketRepositoryInterface $ticketRepository
     ) {
     }
 
     public function close(int $id): void
     {
-        $ticket = $this->ticketSearchByCriteria->searchOne(['id' => $id]);
-        $closedStatus = $this->statusSearchByCriteria->search(['id' => 3]);
+        $ticket = $this->searchTicketByCriteria->searchOne(['id' => $id]);
+        $closedStatus = $this->searchStatusByCriteria->search(['id' => 3]);
         $currentStatus = $ticket->getStatusId()->getId();
 
         if ($currentStatus === 2) {

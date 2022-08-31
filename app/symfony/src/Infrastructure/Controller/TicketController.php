@@ -2,12 +2,10 @@
 
 namespace App\Infrastructure\Controller;
 
-date_default_timezone_set("Europe/Madrid");
-
-use App\Domain\Repository\CommentRepositoryInterface;
-use App\Domain\Repository\TicketRepositoryInterface;
+use App\Application\Create\CreateComment;
+use App\Application\Search\GetTicketComments;
+use App\Application\Search\SearchTicketByCriteria;
 use App\Infrastructure\Form\CommentType;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TicketController extends AbstractController
 {
+    public function __construct(
+        private SearchTicketByCriteria $searchTicketByCriteria,
+        private GetTicketComments $getTicketComments,
+        private CreateComment $createComment
+    ) {
+    }
+
     #[Route('/ticket/{id}', name: 'app_ticket')]
-    public function index(Request $request, TicketRepositoryInterface $ticketRepository, CommentRepositoryInterface $commentRepository): Response
+    public function index(Request $request): Response
     {
         $ticketID = $request->get('id');
-        $ticket = $ticketRepository->findOneBy(['id' => $ticketID]);
-        $comments = $ticket->getComments();
+        $ticket = $this->searchTicketByCriteria->searchOne(['id' => $ticketID]);
+        $comments = $this->getTicketComments->get($ticket);
         $authenticatedUser = $this->getUser();
 
         $commentForm = $this->createForm(CommentType::class);
@@ -29,11 +34,7 @@ class TicketController extends AbstractController
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment = $commentForm->getData();
-            $comment->setDate(new DateTime());
-            $comment->setUser($authenticatedUser);
-            $comment->setTicket($ticket);
-
-            $commentRepository->add($comment, true);
+            $this->createComment->create($comment, $authenticatedUser, $ticket);
         }
 
         return $this->render('dashboard/ticket.html.twig', [

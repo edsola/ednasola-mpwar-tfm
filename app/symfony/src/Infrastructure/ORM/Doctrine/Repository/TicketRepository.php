@@ -2,8 +2,9 @@
 
 namespace App\Infrastructure\ORM\Doctrine\Repository;
 
+use App\Domain\Entity\User;
+use App\Domain\Entity\Ticket;
 use App\Domain\Repository\TicketRepositoryInterface;
-use App\Infrastructure\ORM\Doctrine\Entity\Ticket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,8 +41,25 @@ class TicketRepository extends ServiceEntityRepository implements TicketReposito
         }
     }
 
-    public function addTicket(\App\Domain\Entity\Ticket $ticket, bool $flush = false): void
+    public function findOpenTicketsByUser(User $user): array
     {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.technician_user_id = :user')
+            ->andWhere('t.status_id = 1')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
+    public function findCompletedTicketsByUser(User $user): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.technician_user_id = :user')
+            ->andWhere('t.status_id = 2 OR t.status_id = 3')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

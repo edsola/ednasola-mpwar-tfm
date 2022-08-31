@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Create;
 
 use App\Domain\Entity\Ticket;
 
-class TicketEmptyCreation
+class CreateEmptyTicket
 {
     public function create(): Ticket
     {

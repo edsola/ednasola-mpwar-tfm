@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Search;
 
 use App\Domain\Entity\Priority;
 use App\Domain\Entity\Ticket;
 
-class TicketGetPriority
+class GetTicketPriority
 {
     public function get(Ticket $ticket): Priority
     {

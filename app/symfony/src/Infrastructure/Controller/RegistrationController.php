@@ -2,42 +2,31 @@
 
 namespace App\Infrastructure\Controller;
 
-use App\Domain\Entity\User;
-use App\Domain\Repository\UserRepositoryInterface;
+use App\Application\Create\CreateEmptyUser;
+use App\Application\Create\CreateUser;
 use App\Infrastructure\Form\RegistrationFormType;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/admin/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserRepositoryInterface $userRepository): Response
+    public function __construct(private CreateEmptyUser $createEmptyUser, private CreateUser $createUser)
     {
-        $user = new User();
+    }
+
+    #[Route('/admin/register', name: 'app_register')]
+    public function register(Request $request): Response
+    {
+        $user = $this->createEmptyUser->create();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $user->setUsername(strtolower($form->get('name')->getData() . $form->get('surname')->getData())  . '_' . uniqid());
-            $user->setRoles($form->get('roles')->getData());
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $userRepository->add($user);
-
-            // do anything else you need here, like send an email
+            $user = $form->getData();
+            $plainPassword = $form->get('plainPassword')->getData();
+            $this->createUser->create($user, $plainPassword);
 
             return $this->redirectToRoute('app_tickets');
         }
@@ -48,3 +37,12 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
+
+
+
+/*$email = $form->get('email')->getData();
+$name = $form->get('name')->getData();
+$surname = $form->get('surname')->getData();
+$plainPassword = $form->get('plainPassword')->getData();
+$role = $form->get('roles')->getData();*/
+//$this->createUser->create($email, $name, $surname, $plainPassword, $role);

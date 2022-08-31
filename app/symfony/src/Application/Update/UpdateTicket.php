@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Application;
+namespace App\Application\Update;
 
 use App\Domain\Entity\Priority;
 use App\Domain\Entity\Ticket;
 use App\Domain\Entity\User;
 use App\Domain\Repository\TicketRepositoryInterface;
 
-class TicketUpdate
+class UpdateTicket
 {
     public function __construct(private TicketRepositoryInterface $ticketRepository)
     {
