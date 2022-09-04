@@ -3,6 +3,7 @@
 namespace App\Application\Search;
 
 use App\Domain\Entity\Status;
+use App\Domain\Exception\NotValidStatus;
 use App\Domain\Repository\StatusRepositoryInterface;
 
 class SearchStatusByCriteria
@@ -13,6 +14,11 @@ class SearchStatusByCriteria
 
     public function search(array $criteria, array $orderBy = null): ?Status
     {
-        return $this->statusRepository->findOneBy($criteria, $orderBy);
+        $status = $this->statusRepository->findOneBy($criteria, $orderBy);
+
+        if ($status === null) {
+            throw new NotValidStatus();
+        }
+        return $status;
     }
 }

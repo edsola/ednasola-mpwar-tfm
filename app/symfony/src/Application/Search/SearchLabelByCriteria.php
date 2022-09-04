@@ -3,6 +3,8 @@
 namespace App\Application\Search;
 
 use App\Domain\Entity\Label;
+use App\Domain\Exception\NotValidLabel;
+use App\Domain\Exception\NotValidTicket;
 use App\Domain\Repository\LabelRepositoryInterface;
 
 class SearchLabelByCriteria
@@ -13,7 +15,13 @@ class SearchLabelByCriteria
 
     public function searchOne(array $criteria, array $orderBy = null): ?Label
     {
-        return $this->labelRepository->findOneBy($criteria, $orderBy);
+        $label = $this->labelRepository->findOneBy($criteria, $orderBy);
+
+        if ($label === null) {
+            throw new NotValidLabel();
+        }
+
+        return $label;
     }
 
     public function searchAll(array $criteria, array $orderBy = null): ?Label

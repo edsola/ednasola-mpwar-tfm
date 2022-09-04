@@ -3,6 +3,7 @@
 namespace App\Application\Search;
 
 use App\Domain\Entity\Ticket;
+use App\Domain\Exception\NotValidTicket;
 use App\Domain\Repository\TicketRepositoryInterface;
 
 class SearchTicketByCriteria
@@ -13,7 +14,13 @@ class SearchTicketByCriteria
 
     public function searchOne(array $criteria, array $orderBy = null): ?Ticket
     {
-       return $this->ticketRepository->findOneBy($criteria, $orderBy);
+       $ticket = $this->ticketRepository->findOneBy($criteria, $orderBy);
+
+       if ($ticket === null) {
+           throw new NotValidTicket();
+       }
+
+        return $ticket;
     }
 
     public function searchAll(array $criteria, array $orderBy = null): array
