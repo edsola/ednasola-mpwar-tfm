@@ -18,7 +18,7 @@ class ArchiveController extends AbstractController
         $tickets = $displayArchivedTickets->search($authenticatedUser);
 
 
-        return $this->render('dashboard/tickets.html.twig', [
+        return $this->render('ticket/tickets.html.twig', [
             'tickets' => $tickets,
         ]);
     }

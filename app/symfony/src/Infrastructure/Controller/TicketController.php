@@ -37,7 +37,7 @@ class TicketController extends AbstractController
             $this->createComment->create($comment, $authenticatedUser, $ticket);
         }
 
-        return $this->render('dashboard/ticket.html.twig', [
+        return $this->render('ticket/ticket.html.twig', [
             'ticket' => $ticket,
             'comments' => $comments,
             'commentForm' => $commentForm->createView(),

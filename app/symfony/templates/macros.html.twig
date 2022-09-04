@@ -12,12 +12,12 @@
         <a href="{{ path('app_ticket_status', {'id': ticket.id}) }}" class="">
 
             {% if ticket.StatusId.id == 1 %}
-                <i class="fa fa-square-o"></i>
-                Completed
+                <i class="bi bi-square"></i>
+                Mark as completed
             {% endif %}
             {% if ticket.StatusId.id == 2 %}
-                <i class="fa fa-check-square-o"></i>
-                Uncompleted
+                <i class="bi bi-check-square"></i>
+                Mark as uncompleted
             {% endif %}
         </a>
     {% endif %}

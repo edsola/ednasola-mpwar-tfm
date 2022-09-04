@@ -1,6 +1,6 @@
 {% extends 'menu.html.twig' %}
 
-{% block title %}Edit ticket{% endblock %}
+{% block title %}TicketsApp | Edit ticket{% endblock %}
 
 {% block body %}
         <h1>Edit ticket</h1>
@@ -36,7 +36,7 @@
         } }) }}
 
 
-        {{ form_row(form.submit, {'label': 'Save', 'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_row(form.submit, {'label': 'Save', 'attr': {'class': 'btn btn-gradient'}}) }}
         {{ form_end(form) }}
 
 {% endblock %}

@@ -45,7 +45,7 @@ class TechniciansController extends AbstractController
             $techniciansResult[] = $user;
         }
 
-        return $this->render('dashboard/technicians.html.twig', [
+        return $this->render('user/technicians.html.twig', [
             'technicians' => $techniciansResult,
         ]);
     }

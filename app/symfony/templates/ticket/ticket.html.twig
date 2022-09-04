@@ -1,7 +1,7 @@
 {% extends 'menu.html.twig' %}
 {% import 'macros.html.twig' as macros %}
 
-{% block title %}Tickets{% endblock %}
+{% block title %}TicketsApp | Ticket{% endblock %}
 
 {% block body %}
     <h1>Ticket</h1>
@@ -14,7 +14,7 @@
         <p>{{ ticket.description | nl2br }}</p>
 
         <h5>Priority</h5>
-        <p>{{ ticket.PriorityId }}</p>
+        <p class="ticket-priority"><span>&#9679;</span> {{ ticket.PriorityId }}</p>
 
         <h5>Assigned to</h5>
         <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
@@ -31,7 +31,7 @@
         <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
 
         <h5>Status</h5>
-        <p>{{ ticket.StatusId }}</p>
+        <p class="ticket-status">{{ ticket.StatusId }}</p>
 
         <h5>Actions</h5>
         {{ macros.showTicketActions(ticket) }}

@@ -24,7 +24,7 @@ class LabelController extends AbstractController
     ) {
     }
 
-    #[Route('/admin/categories', name: 'app_categories')]
+    #[Route('/admin/labels', name: 'app_labels')]
     public function index(Request $request): Response
     {
         $labels = $this->getLabels->get();
@@ -36,7 +36,7 @@ class LabelController extends AbstractController
             $label = $labelForm->get('name')->getData();
             $this->createLabel->create($label);
 
-            return $this->redirectToRoute('app_categories');
+            return $this->redirectToRoute('app_labels');
         }
 
         return $this->render('labels/labels.html.twig', [
@@ -61,7 +61,7 @@ class LabelController extends AbstractController
             $labelName = $labelForm->get('name')->getData();
             $this->updateLabel->update($labelName, $labelID);
 
-            return $this->redirectToRoute('app_categories');
+            return $this->redirectToRoute('app_labels');
         }
 
         return $this->render('labels/edit.html.twig', [
@@ -78,6 +78,6 @@ class LabelController extends AbstractController
         $labelID = $request->get('id');
         $this->deleteLabel->delete($labelID);
 
-        return $this->redirectToRoute('app_categories');
+        return $this->redirectToRoute('app_labels');
     }
 }
