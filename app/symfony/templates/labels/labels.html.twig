@@ -1,18 +1,18 @@
 {% extends 'menu.html.twig' %}
 
-{% block title %}Categories{% endblock %}
+{% block title %}TicketsApp | Labels{% endblock %}
 
 {% block body %}
-    <h1>Categories</h1>
+    <h1>Labels</h1>
 
     <section>
-        <button type="button" class="btn-gradient mt-0" id="labelFormButton">Add new</button>
+        <button type="button" class="btn-gradient mt-0 mb-5" id="labelFormButton">Add new</button>
         <div class="label-form" id="labelForm" style="display: none;">
-            <p class="mt-5" id="labelFormClose"><a><i class="bi bi-x-circle"></i></i>  Close</a></p>
-            <p>Enter a name for a new category:</p>
+            <p class="" id="labelFormClose"><a><i class="bi bi-x-circle"></i>  Close</a></p>
+            <p>Enter a name for a new label:</p>
             {{ form_start(labelForm, {'attr': {'class': 'form-post'}}) }}
             {{ form_row(labelForm.name, {'attr': {'class': 'form-control'} }) }}
-            {{ form_row(labelForm.submit, {'attr': {'class': 'btn btn-gradient'}}) }}
+            {{ form_row(labelForm.submit, {'attr': {'class': 'btn btn-gradient mb-5'}}) }}
             {{ form_end(labelForm) }}
         </div>
     </section>
@@ -21,7 +21,7 @@
         <table class="table responsive-table table-bordered table-striped">
             <thead>
             <tr>
-                <th>Category</th>
+                <th>Label</th>
                 <th>Tickets</th>
                 <th>Actions</th>
             </tr>
@@ -46,8 +46,8 @@
             </tbody>
         </table>
     </section>
+{% endblock %}
 
-
-
-
+{% block javascripts %}
+    <script src="{{ asset('assets/js/labels.js') }}"></script>
 {% endblock %}

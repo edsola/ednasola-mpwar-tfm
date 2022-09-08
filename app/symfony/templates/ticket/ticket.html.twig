@@ -10,30 +10,30 @@
         <h5>Task</h5>
         <p>{{ ticket.title }}</p>
 
-        <h5>Description</h5>
+        <h5 class="mt-5">Description</h5>
         <p>{{ ticket.description | nl2br }}</p>
 
-        <h5>Priority</h5>
-        <p class="ticket-priority"><span>&#9679;</span> {{ ticket.PriorityId }}</p>
+        <h5 class="mt-5">Priority</h5>
+        <p class="ticket-priority"><span>&#9679;</span> {{ ticket.PriorityId | capitalize }}</p>
 
-        <h5>Assigned to</h5>
+        <h5 class="mt-5">Assigned to</h5>
         <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
         <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
 
-        <h5>Categories</h5>
+        <h5 class="mt-5">Categories</h5>
         <p>
             {% for label in ticket.labels %}
                 {{ label }}
             {% endfor %}
         </p>
 
-        <h5>Created</h5>
+        <h5 class="mt-5">Created</h5>
         <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
 
-        <h5>Status</h5>
-        <p class="ticket-status">{{ ticket.StatusId }}</p>
+        <h5 class="mt-5">Status</h5>
+        <p class="ticket-status">{{ ticket.StatusId | upper }}</p>
 
-        <h5>Actions</h5>
+        <h5 class="mt-5">Actions</h5>
         {{ macros.showTicketActions(ticket) }}
 
         <hr>
@@ -51,7 +51,7 @@
         </div>
         {{ form_start(commentForm, {'attr': {'class': 'form-post'}}) }}
             {{ form_row(commentForm.comment, {'attr': {'class': 'form-control'} }) }}
-            {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-gradient'}}) }}
         {{ form_end(commentForm) }}
     </section>
 {% endblock %}

@@ -21,8 +21,6 @@
 
             <h5>Average time to complete tickets</h5>
             <p>{{ technician.averageTime }}</p>
-
-            <a href="{{ path('app_user_delete', {'id': technician.id}) }}" class="" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')"><i class="bi bi-trash3"></i></a>
             </div>
         </article>
         {% endfor %}

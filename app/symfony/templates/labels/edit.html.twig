@@ -1,0 +1,19 @@
+{% extends 'menu.html.twig' %}
+
+{% block title %}TicketsApp | Labels{% endblock %}
+
+{% block body %}
+    <h1>Edit Label</h1>
+
+    <section>
+        <p>Enter a new name for label: <b>{{ label.name }}</b></p>
+        <div class="label-form" id="labelForm">
+            {{ form_start(labelForm, {'attr': {'class': 'form-inline'}}) }}
+            {{ form_row(labelForm.name, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(labelForm.submit, {'label': 'Save', 'attr': {'class': 'btn btn-gradient'}}) }}
+            {{ form_end(labelForm) }}
+        </div>
+    </section>
+
+    <p class="mt-5"><a href="{{ path('app_labels') }}"><i class="bi bi-arrow-left"> </i>  Go back to Labels</a></p>
+{% endblock %}

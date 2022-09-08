@@ -1,0 +1,30 @@
+{% extends 'menu.html.twig' %}
+{% import 'macros.html.twig' as macros %}
+
+{% block title %}TicketsApp | Account{% endblock %}
+
+{% block body %}
+    <h1>Account</h1>
+
+    <section class="user-info">
+        <h5>Name</h5>
+        <p>{{ user.name | capitalize }}</p>
+
+        <h5>Surname</h5>
+        <p>{{ user.surname | capitalize }}</p>
+
+        <h5>Email</h5>
+        <p>{{ user.email }}</p>
+
+        <h5>Role</h5>
+        <p>{{ user.roles | first }}</p>
+
+
+
+        <hr>
+    </section>
+
+    <section class="ticketComments">
+
+    </section>
+{% endblock %}

@@ -3,21 +3,25 @@
 
 {% block title %}TicketsApp | Tickets{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+{% endblock %}
+
 {% block body %}
         <h1>Tickets</h1>
         {% if app.request.get('_route') == 'app_tickets' %}
             <section class="filters">
-                <div class="btn-group status-filter">
+                <div class="btn-group status-filter mb-3">
                     {% for item in status %}
                         <a href="{{ path('app_tickets', {'status': item.id}) }}" class="btn btn-secondary btn-filter">{{ item.name | capitalize }}</a>
                     {% endfor %}
                 </div>
-                <div class="btn-group priority-filter">
+                <div class="btn-group priority-filter mb-3">
                     {% for item in priority %}
                         <a href="{{ path('app_tickets', {'priority': item.id}) }}" class="btn btn-secondary btn-filter">{{ item.name | capitalize }}</a>
                     {% endfor %}
                 </div>
-                <div class="btn-group all-filter">
+                <div class="btn-group all-filter mb-3">
                         <a href="{{ path('app_tickets')}}" class="btn btn-secondary btn-filter">All</a>
                 </div>
             </section>
@@ -40,7 +44,7 @@
 
                 <tbody class="all-tickets">
                 {% for ticket in tickets %}
-                    <tr class=" status-{{ ticket.StatusId }}">
+                    <tr>
                         <td>
                             <a href="{{ path('app_ticket', {'id': ticket.id}) }}"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
                             <p class="text-muted">
@@ -76,4 +80,9 @@
                 </tbody>
             </table>
         </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="{{ asset('assets/js/table.js') }}"></script>
 {% endblock %}

@@ -1,5 +1,5 @@
 header {
-    background: linear-gradient(0deg,  var(--secondary-color) 9%,  var(--primary-color) 100%);
+    background: var(--main-gradient);
     transition: all 0.4s ease;
     top: 0;
     left: 0;
@@ -67,6 +67,10 @@ header .nav-list .nav-item {
     font-size: 1.2em;
     font-weight: 300;
     transition: all 0.4s ease;
+}
+
+.responsive-table-titles {
+    font-weight: 500;
 }
 
 
@@ -155,7 +159,6 @@ header .nav-list .nav-item {
     }
 
     main .content .icon-menu {
-
         top: 30px;
         right: 15px;
         color: #ffffff;

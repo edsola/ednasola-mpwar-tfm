@@ -3,6 +3,9 @@
 :root {
     --primary-color: #5a43dd;
     --secondary-color: #1fcccf;
+
+    --main-gradient: linear-gradient(0deg,  var(--secondary-color) 0%,  var(--primary-color) 100%);
+    --horizontal-gradient: linear-gradient(90deg,  var(--primary-color) 0%,  var(--secondary-color) 100%);
 }
 
 * {
@@ -22,4 +25,158 @@ h1 {
     color: var(--primary-color);
     padding-top: 125px;
 }
+
+h3 {
+    color: var(--primary-color);
+    font-weight: 200;
+}
+
+h5 {
+    font-size: 1.1em;
+    font-weight: 300;
+    color: var(--primary-color);
+
+}
+
+.btn-gradient {
+    background-image: var(--horizontal-gradient);
+    margin-top: 30px;
+    padding: 15px 30px;
+    transition: all 0.2s ease;
+    background-size: 200% auto;
+    border-radius: 100px;
+    border: none;
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 3px;
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
+.btn-gradient:hover {
+    background-position: right center;
+    color: #ffffff;
+    padding: 15px 35px;
+    /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);*/
+}
+
+#labelForm {
+    transition: 0.8s ease;
+}
+
+.content {
+    padding-bottom: 120px;
+}
+
+.dataTables_wrapper > div {
+    padding: 30px 0;
+}
+
+thead {
+    background: var(--primary-color);
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.table-bordered>:not(caption)>*>* {
+    border: none;
+}
+
+.tickets-table {
+    font-size: 0.95em;
+}
+
+.ticket-action > i {
+    color: var(--primary-color);
+    font-size: 1.1em;
+    padding-right: 3px;
+}
+
+.ticket-status {
+    display: table;
+    border-radius: 4px;
+    color: #ffffff;
+    padding: 2px 8px;
+}
+
+.login-body {
+    background: linear-gradient(20deg,  var(--secondary-color) 0%,  var(--primary-color) 80%) fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-card {
+    text-align: center;
+    background: #ffffff;
+    float: none;
+    margin: auto;
+    max-width: 500px;
+    vertical-align: middle;
+    padding: 40px 80px 80px;
+    border-radius: 40px;
+}
+
+.login-brand {
+    display: block;
+    align-content: center;
+}
+
+.login-brand i{
+    color: var(--primary-color);
+    font-size: 6em;
+}
+
+.login-brand h1 {
+    font-weight: 700;
+    padding-top: 0;
+}
+
+.login-form button[type="submit"] {
+    width: 100%;
+}
+
+.login-form input::placeholder {
+    color: #D1C4E9;
+    font-weight: bold;
+}
+
+.login-form input {
+    width: 100%;
+    text-align: center;
+    padding: 15px 30px;
+    background: rgba(90, 67, 221, 0.1);
+}
+
+.login-form input:focus {
+    background: rgba(90, 67, 221, 0.05);
+}
+
+.btn-filter {
+    background-color: rgba(90, 67, 221, 0.4);
+    border: none;
+}
+
+.btn-filter:hover, .filter-active {
+    background-color: rgba(90, 67, 221, 0.7);
+}
+
+
+@media screen and (max-width: 900px) {
+    .responsive-table tr  {
+        display: flex;
+    }
+
+    .responsive-table td, .responsive-table th {
+        display: block;
+    }
+
+    .responsive-table tr {
+        flex-direction: column;
+        display:block;
+    }
+}
+
 

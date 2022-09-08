@@ -2,9 +2,7 @@ let sidebarMenu = document.querySelector('header');
 let navButton = document.querySelector('.icon-menu');
 let navItems = document.getElementsByClassName('nav-item');
 
-
 navButton.addEventListener('click', closeMainMenu);
-
 
 function closeMainMenu() {
     sidebarMenu.classList.toggle('close');
@@ -13,12 +11,3 @@ function closeMainMenu() {
         navItems[i].classList.toggle('closed-items');
     }
 }
-
-let table = new DataTable('.tickets-table', {
-    // options
-});
-
-
-
-
-
