@@ -21,4 +21,14 @@ class SearchStatusByCriteria
         }
         return $status;
     }
+
+    public function searchAll(array $criteria, array $orderBy = null): array
+    {
+        $status = $this->statusRepository->findBy($criteria, $orderBy);
+
+        if ($status === null) {
+            throw new NotValidStatus();
+        }
+        return $status;
+    }
 }

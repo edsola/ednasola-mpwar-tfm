@@ -13,7 +13,7 @@ class DisplayTechnicians
     ) {
     }
 
-    public function displayTechincians(): ?array
+    public function displayTechincians(): array
     {
         $technicians = $this->userRepository->findByRole('ROLE_TECHNICIAN');
         $techniciansResult = [];
