@@ -15,7 +15,7 @@ class DeleteTicketController extends AbstractController
     {
     }
 
-    #[Route('/admin/delete-ticket/{id}', name: 'app_ticket_delete', methods: ['GET'])]
+    #[Route('/admin/delete-ticket/{id}', name: 'app_ticket_delete', methods: ['GET', 'DELETE'])]
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');

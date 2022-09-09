@@ -14,7 +14,7 @@ class CloseTicketController extends AbstractController
     {
     }
 
-    #[Route('/admin/close-ticket/{id}', name: 'app_ticket_close')]
+    #[Route('/admin/close-ticket/{id}', name: 'app_ticket_close', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');

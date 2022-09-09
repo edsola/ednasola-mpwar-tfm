@@ -22,7 +22,7 @@ class EditTicketController extends AbstractController
     ) {
     }
 
-    #[Route('/admin/edit-ticket/{id}', name: 'app_ticket_edit')]
+    #[Route('/admin/edit-ticket/{id}', name: 'app_ticket_edit', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');

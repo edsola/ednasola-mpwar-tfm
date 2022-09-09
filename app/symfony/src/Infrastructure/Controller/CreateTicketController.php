@@ -18,7 +18,7 @@ class CreateTicketController extends AbstractController
     ) {
     }
 
-    #[Route('/admin/create-ticket', name: 'app_ticket_create')]
+    #[Route('/admin/create-ticket', name: 'app_ticket_create', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $ticket = $this->createEmptyTicket->create();

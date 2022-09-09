@@ -14,7 +14,7 @@ class ChangeStatusController extends AbstractController
     {
     }
 
-    #[Route('/change-status/{id}', name: 'app_ticket_status')]
+    #[Route('/change-status/{id}', name: 'app_ticket_status', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');

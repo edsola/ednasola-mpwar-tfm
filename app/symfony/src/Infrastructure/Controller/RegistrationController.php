@@ -16,7 +16,7 @@ class RegistrationController extends AbstractController
     {
     }
 
-    #[Route('/admin/register', name: 'app_register')]
+    #[Route('/admin/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
         $user = $this->createEmptyUser->create();
@@ -37,12 +37,3 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
-
-
-
-/*$email = $form->get('email')->getData();
-$name = $form->get('name')->getData();
-$surname = $form->get('surname')->getData();
-$plainPassword = $form->get('plainPassword')->getData();
-$role = $form->get('roles')->getData();*/
-//$this->createUser->create($email, $name, $surname, $plainPassword, $role);

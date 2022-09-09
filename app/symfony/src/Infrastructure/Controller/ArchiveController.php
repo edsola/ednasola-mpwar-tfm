@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArchiveController extends AbstractController
 {
-    #[Route('/archive', name: 'app_tickets_archived')]
+    #[Route('/archive', name: 'app_tickets_archived', methods: ['GET'])]
     public function index(DisplayArchivedTickets $displayArchivedTickets): Response
     {
         $authenticatedUser = $this->getUser();
