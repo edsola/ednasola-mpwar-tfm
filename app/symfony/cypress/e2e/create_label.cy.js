@@ -1,4 +1,4 @@
-describe('Create new ticket test', () => {
+describe('Create new label test', () => {
   const labelName = 'label test';
   const email = 'admin@admin.com';
   const pass = 'admin12345';

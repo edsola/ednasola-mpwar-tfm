@@ -9,7 +9,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CreateUser
 {
     public function __construct(
-        private UserRepositoryInterface $userRepository, private UserPasswordHasherInterface $userPasswordHasher
+        private UserRepositoryInterface $userRepository,
+        private UserPasswordHasherInterface $userPasswordHasher
     ) {
     }
 
@@ -21,13 +22,4 @@ class CreateUser
 
         $this->userRepository->add($user, true);
     }
-
 }
-
-/*
-public function create(string $email, string $name, string $surname, string $plainPassword, array $roles): void
-{
-        //$user->setUsername(strtolower($form->get('name')->getData() . $form->get('surname')->getData())  . '_' . uniqid());
-
-}
-*/
