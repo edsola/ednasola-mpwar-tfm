@@ -2,7 +2,6 @@ let labelFormButton = document.getElementById('labelFormButton');
 let labelForm = document.getElementById('labelForm');
 let labelFormClose = document.getElementById('labelFormClose');
 
-
 function displayLabelForm() {
     if (labelForm.style.display === 'none') {
         labelForm.style.display = 'block';
@@ -13,6 +12,10 @@ function displayLabelForm() {
     }
 }
 
-
 labelFormButton.addEventListener('click', displayLabelForm);
 labelFormClose.addEventListener('click', displayLabelForm);
+
+
+
+
+

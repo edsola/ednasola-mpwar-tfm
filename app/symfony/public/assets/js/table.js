@@ -30,11 +30,9 @@ function tableStatusAndPriorityStyle() {
         if (status === 'OPEN') {
             ticketStatus[i].style.setProperty('background', '#6c95d4');
         }
-
         if (status === 'COMPLETED') {
             ticketStatus[i].style.setProperty('background', '#9cc995');
         }
-
         if (status === 'CLOSED') {
             ticketStatus[i].style.setProperty('background', '#b4b8bf');
         }
@@ -46,11 +44,9 @@ function tableStatusAndPriorityStyle() {
         if (priority === 'Low') {
             ticketPriority[i].children[0].style.setProperty('color', '#80c900');
         }
-
         if (priority === 'Medium') {
             ticketPriority[i].children[0].style.setProperty('color', '#ffae00');
         }
-
         if (priority === 'High') {
             ticketPriority[i].children[0].style.setProperty('color', '#ff0000');
         }

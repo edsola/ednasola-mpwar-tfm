@@ -21,3 +21,4 @@ final class NotValidStatus extends DomainException
         return 'The status code is not correct';
     }
 }
+

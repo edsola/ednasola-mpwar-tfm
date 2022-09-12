@@ -4,7 +4,7 @@ namespace App\Domain\Exception;
 
 use DomainException;
 
-class NotValidPriority extends DomainException
+final class NotValidPriority extends DomainException
 {
     public function __construct()
     {

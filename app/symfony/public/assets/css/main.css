@@ -86,7 +86,7 @@ thead {
     font-size: 0.95em;
 }
 
-.ticket-action > i {
+.ticket-action > i, .label-action > i {
     color: var(--primary-color);
     font-size: 1.1em;
     padding-right: 3px;

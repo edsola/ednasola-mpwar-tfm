@@ -4,7 +4,7 @@ namespace App\Domain\Exception;
 
 use DomainException;
 
-class NotValidLabel extends DomainException
+final class NotValidLabel extends DomainException
 {
     public function __construct()
     {
