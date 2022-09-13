@@ -14,11 +14,11 @@ class CreateUser
     ) {
     }
 
-    public function create(User $user, string $plainPassword): void
+    public function create(User $user, string $name, string $plainPassword): void
     {
         $hashedPassword = $this->userPasswordHasher->hashPassword($user, $plainPassword);
         $user->setPassword($hashedPassword);
-        $user->setUsername(uniqid());
+        $user->setUsername(strtolower($name  . '_' . uniqid()));
 
         $this->userRepository->add($user, true);
     }

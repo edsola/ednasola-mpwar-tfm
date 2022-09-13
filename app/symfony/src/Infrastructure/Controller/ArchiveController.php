@@ -20,6 +20,7 @@ class ArchiveController extends AbstractController
 
         return $this->render('ticket/tickets.html.twig', [
             'tickets' => $tickets,
+            'title' => 'Archive'
         ]);
     }
 }

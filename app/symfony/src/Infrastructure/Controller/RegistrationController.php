@@ -26,7 +26,8 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $plainPassword = $form->get('plainPassword')->getData();
-            $this->createUser->create($user, $plainPassword);
+            $name = $form->get('name')->getData();
+            $this->createUser->create($user, $name, $plainPassword);
 
             return $this->redirectToRoute('app_tickets');
         }

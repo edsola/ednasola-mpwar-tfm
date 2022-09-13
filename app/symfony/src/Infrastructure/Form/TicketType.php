@@ -31,7 +31,10 @@ class TicketType extends AbstractType
                 'class' => Priority::class,
                 'choice_label' => 'name',
                 'expanded' => true,
-                'data' => $options['current_priority']
+                'data' => $options['current_priority'],
+                'label_attr' => [
+                    'class' => 'radio-inline',
+                ],
             ])
             ->add('labels', EntityType::class, [
                 'class' => Label::class,

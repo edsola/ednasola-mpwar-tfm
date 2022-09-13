@@ -35,7 +35,8 @@ class TicketsController extends AbstractController
         return $this->render('ticket/tickets.html.twig', [
             'tickets' => $tickets,
             'status' => $status,
-            'priority' => $priorities
+            'priority' => $priorities,
+            'title' => 'Tickets'
         ]);
     }
 }
