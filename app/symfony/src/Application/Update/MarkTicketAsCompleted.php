@@ -27,11 +27,11 @@ class MarkTicketAsCompleted
 
         if ($currentStatus === 1) {
             $ticket->setStatusId($completedStatus);
+            $ticket->setCompletedDate(new DateTime());
         }
 
         if ($currentStatus === 2) {
             $ticket->setStatusId($openStatus);
-            $ticket->setCompletedDate(new DateTime());
         }
 
         $this->ticketRepository->add($ticket, true);
