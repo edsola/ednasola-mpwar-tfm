@@ -18,7 +18,7 @@ class EditLabelController extends AbstractController
     ) {
     }
 
-    #[Route('/admin/edit-label/{id}', name: 'app_label_edit', methods: ['PUT'])]
+    #[Route('/admin/edit-label/{id}', name: 'app_label_edit', methods: ['GET','PUT'])]
     public function editLabel(Request $request): Response
     {
         $labelID = $request->get('id');
