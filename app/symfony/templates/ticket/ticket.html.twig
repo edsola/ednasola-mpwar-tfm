@@ -6,47 +6,52 @@
 {% block body %}
     <h1>Ticket</h1>
 
-    <article>
-        <h5>Task</h5>
-        <p>{{ ticket.title }}</p>
+    <section class="ticketDetails">
+        <div class="row gx-5">
+            <div class="col-md-9">
+                <h5>Task</h5>
+                <p class="singleTicketTitle">{{ ticket.title }}</p>
 
-        <h5 class="mt-5">Description</h5>
-        <p>{{ ticket.description | nl2br }}</p>
+                <h5 class="mt-5">Description</h5>
+                <p>{{ ticket.description | nl2br }}</p>
 
-        <h5 class="mt-5">Priority</h5>
-        <p class="ticket-priority"><span>&#9679;</span> {{ ticket.PriorityId | capitalize }}</p>
+                <h5 class="mt-5">Actions</h5>
+                {{ macros.showTicketActions(ticket) }}
+            </div>
 
-        <h5 class="mt-5">Assigned to</h5>
-        <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
-        <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
+            <div class="col-md-3">
+                <h5 class="mt-5 mt-md-0">Priority</h5>
+                <p class="ticket-priority"><span>&#9679;</span> {{ ticket.PriorityId | capitalize }}</p>
 
-        <h5 class="mt-5">Categories</h5>
-        <p>
-            {% for label in ticket.labels %}
-                {{ label }}
-            {% endfor %}
-        </p>
+                <h5 class="mt-5">Assigned to</h5>
+                <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
+                <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
 
-        <h5 class="mt-5">Created</h5>
-        <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
+                <h5 class="mt-5">Categories</h5>
+                <p>
+                    {% for label in ticket.labels %}
+                        {{ label }}
+                    {% endfor %}
+                </p>
 
-        <h5 class="mt-5">Status</h5>
-        <p class="ticket-status">{{ ticket.StatusId | upper }}</p>
+                <h5 class="mt-5">Created</h5>
+                <p>{{ ticket.CreatedDate | date("d/m/Y") }}</p>
 
-        <h5 class="mt-5">Actions</h5>
-        {{ macros.showTicketActions(ticket) }}
+                <h5 class="mt-5">Status</h5>
+                <p class="ticket-status">{{ ticket.StatusId | upper }}</p>
+            </div>
+        </div>
 
-        <hr>
-    </article>
-    <section class="ticketComments">
+
+    </section>
+    <section class="ticketComments mt-5">
         <h3>Comments</h3>
         <div>
             {% for comment in comments %}
-                <div>
+                <article class="ticketComment">
                     <p class="commentInfo"><i class="bi bi-person-fill"></i> {{ comment.user.name | capitalize }} {{ comment.user.surname | capitalize }} (<a href="mailto:{{ comment.user.email }}" class="text-muted">{{ comment.user.email }}</a>) | <i class="bi bi-clock-fill"></i> {{ comment.date | date("d/m/Y H:i:s") }}</p>
                     {{ comment.comment  | nl2br }}
-                </div>
-                <hr>
+                </article>
             {% endfor %}
         </div>
         {{ form_start(commentForm, {'attr': {'class': 'form-post'}}) }}
@@ -54,4 +59,8 @@
             {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-gradient'}}) }}
         {{ form_end(commentForm) }}
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/table.js') }}"></script>
 {% endblock %}

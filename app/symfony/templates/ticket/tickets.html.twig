@@ -1,14 +1,14 @@
 {% extends 'menu.html.twig' %}
 {% import 'macros.html.twig' as macros %}
 
-{% block title %}TicketsApp | Tickets{% endblock %}
+{% block title %}TicketsApp | {{ title }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 {% endblock %}
 
 {% block body %}
-        <h1>Tickets</h1>
+        <h1>{{ title }}</h1>
         {% if app.request.get('_route') == 'app_tickets' %}
             <section class="filters">
                 <div class="btn-group status-filter mb-3">
@@ -46,7 +46,7 @@
                 {% for ticket in tickets %}
                     <tr>
                         <td>
-                            <a href="{{ path('app_ticket', {'id': ticket.id}) }}"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
+                            <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="ticket-title text-decoration-none"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
                             <p class="text-muted">
                                 {{ ticket.description | slice(0, 70) | raw }}
                                 {% if ticket.description | length > 70 %}

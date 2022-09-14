@@ -5,12 +5,13 @@
 {% block body %}
     <h1>Create new ticket</h1>
 
-    {{ form_start(form, {'attr': {'class': 'form-post'}}) }}
+    {{ form_start(form, {'attr': {'class': 'form-post ticket-form'}}) }}
         {{ form_row(form.title, {'attr': {'class': 'form-control'} }) }}
         {{ form_row(form.description, {'attr': {'class': 'form-control'} }) }}
         {{ form_row(form.technician_user_id, {
             'label': 'Technician',
-            'attr': {'class': 'form-control'}
+            'attr': {'class': 'form-control',
+            'rows': '10'}
         }) }}
         {{ form_row(form.priority_id, {
             'label': 'Priority',

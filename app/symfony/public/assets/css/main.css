@@ -163,6 +163,65 @@ thead {
     background-color: rgba(90, 67, 221, 0.7);
 }
 
+.ticket-title {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.ticketComment {
+    background-color: rgba(90, 67, 221, 0.08);
+    padding: 20px 35px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+.ticketDetails {
+    border-bottom: var(--primary-color) 1px solid;
+    padding-bottom: 50px;
+}
+
+.commentInfo > i {
+    color: var(--primary-color);
+}
+
+.commentInfo > p {
+    font-size: 7px;
+}
+
+.ticket-form > div > textarea {
+    height: 200px;
+}
+
+
+.ticket-form > div > label, legend, .register-form > div > label {
+    color: var(--primary-color);
+}
+
+#ticket_priority_id, #ticket_labels {
+    border: none;
+}
+
+
+.technician-info p {
+    font-weight: 500;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    color: var(--primary-color);
+}
+
+.technician-info a {
+    text-decoration: none;
+}
+
+.technician-info {
+    margin-bottom: 30px;
+}
+
+.technicians > article > .card{
+    background-color: rgba(90, 67, 221, 0.08);
+    border: none;
+}
+
 
 @media screen and (max-width: 900px) {
     .responsive-table tr  {

@@ -5,7 +5,7 @@
 {% block body %}
         <h1>Edit ticket</h1>
 
-        {{ form_start(form, {'attr': {'class': 'form-post'}}) }}
+        {{ form_start(form, {'attr': {'class': 'form-post ticket-form'}}) }}
         {{ form_row(form.title, {'attr': {
             'class': 'form-control',
             'value': ticket.title
