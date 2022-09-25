@@ -224,6 +224,13 @@ thead {
 
 
 @media screen and (max-width: 900px) {
+    main {
+        padding: 0 50px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
     .responsive-table tr  {
         display: flex;
     }

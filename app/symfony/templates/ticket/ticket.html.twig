@@ -55,7 +55,12 @@
             {% endfor %}
         </div>
         {{ form_start(commentForm, {'attr': {'class': 'form-post'}}) }}
-            {{ form_row(commentForm.comment, {'attr': {'class': 'form-control'} }) }}
+            {{ form_row(commentForm.comment, {
+                'value': '',
+                'attr': {
+                    'class': 'form-control'
+                }
+            }) }}
             {{ form_row(commentForm.submit, {'attr': {'class': 'btn btn-gradient'}}) }}
         {{ form_end(commentForm) }}
     </section>
