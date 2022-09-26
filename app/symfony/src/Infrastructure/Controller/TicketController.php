@@ -21,7 +21,7 @@ class TicketController extends AbstractController
     ) {
     }
 
-    #[Route('/ticket/{id}', name: 'app_ticket')]
+    #[Route('/ticket/{id}', name: 'app_ticket', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $ticketID = $request->get('id');

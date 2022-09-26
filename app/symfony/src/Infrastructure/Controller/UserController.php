@@ -14,7 +14,7 @@ class UserController extends AbstractController
 
     }
 
-    #[Route('/account', name: 'app_account')]
+    #[Route('/account', name: 'app_account', methods: ['GET'])]
     public function account(): Response
     {
         $authenticatedUser = $this->getUser();
