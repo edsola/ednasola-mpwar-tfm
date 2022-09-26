@@ -1,0 +1,31 @@
+{% extends 'menu.html.twig' %}
+{% import 'macros.html.twig' as macros %}
+
+{% block title %}TicketsApp | Technicians{% endblock %}
+
+{% block body %}
+    <h1>Technicians</h1>
+
+    <section class="row technicians">
+        {% for technician in technicians %}
+        <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card card-body">
+                <div class="technician-info">
+                    <p class="text-capitalize">{{ technician.name }}</p>
+                    <a href="mailto:{{ technician.email }}" class="text-muted">{{ technician.email }}</a>
+                </div>
+
+                <h5>Opened tickets</h5>
+                <p>{{ technician.openTickets | length }}</p>
+
+                <h5>Completed tickets</h5>
+                <p>{{ technician.completedTickets | length }}</p>
+
+                <h5>Average time to complete tickets</h5>
+                <p>{{ technician.averageTime }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+
+{% endblock %}

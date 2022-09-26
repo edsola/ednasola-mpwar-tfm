@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/app/symfony/tests" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Entity" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Form" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Controller" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Repository" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Infrastructure/ORM/Doctrine/Entity" />
+      <excludeFolder url="file://$MODULE_DIR$/app/symfony/src/Domain/ValueObjects" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jQuery" level="project" />
   </component>
 </module>

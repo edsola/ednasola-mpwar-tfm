@@ -1,0 +1,88 @@
+{% extends 'menu.html.twig' %}
+{% import 'macros.html.twig' as macros %}
+
+{% block title %}TicketsApp | {{ title }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+{% endblock %}
+
+{% block body %}
+        <h1>{{ title }}</h1>
+        {% if app.request.get('_route') == 'app_tickets' %}
+            <section class="filters">
+                <div class="btn-group status-filter mb-3">
+                    {% for item in status %}
+                        <a href="{{ path('app_tickets', {'status': item.id}) }}" class="btn btn-secondary btn-filter">{{ item.name | capitalize }}</a>
+                    {% endfor %}
+                </div>
+                <div class="btn-group priority-filter mb-3">
+                    {% for item in priority %}
+                        <a href="{{ path('app_tickets', {'priority': item.id}) }}" class="btn btn-secondary btn-filter">{{ item.name | capitalize }}</a>
+                    {% endfor %}
+                </div>
+                <div class="btn-group all-filter mb-3">
+                        <a href="{{ path('app_tickets')}}" class="btn btn-secondary btn-filter">All</a>
+                </div>
+            </section>
+        {% endif %}
+
+
+        <section class="tickets row">
+            <table class="table tickets-table responsive-table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Priority</th>
+                    <th>Assigned to</th>
+                    <th>Categories</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody class="all-tickets">
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('app_ticket', {'id': ticket.id}) }}" class="ticket-title text-decoration-none"><p class="text-sm mb-0">{{ ticket.title }}</p></a>
+                            <p class="text-muted">
+                                {{ ticket.description | slice(0, 70) | raw }}
+                                {% if ticket.description | length > 70 %}
+                                    ...
+                                {% endif %}
+                            </p>
+                        </td>
+                        <td>
+                           <p class="ticket-priority priority-{{ ticket.PriorityId }}"><span>&#9679;</span>{{ ticket.PriorityId | capitalize }}</p>
+                        </td>
+                        <td>
+                            <p class="mb-0">{{ ticket.TechnicianUserId.name | capitalize}} {{ ticket.TechnicianUserId.surname | capitalize}}</p>
+                            <a href="mailto:{{ ticket.TechnicianUserId }}"><p class="text-muted">{{ ticket.TechnicianUserId }}</p></a>
+                        </td>
+                        <td>
+                            {% for label in ticket.labels %}
+                            {{ label }} <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ ticket.CreatedDate | date("d/m/Y") }}
+                        </td>
+                        <td>
+                            <p class="ticket-status">{{ ticket.StatusId | upper }}</p>
+                        </td>
+                        <td>
+                            {{ macros.showTicketActions(ticket) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script src="{{ asset('assets/js/table.js') }}"></script>
+{% endblock %}

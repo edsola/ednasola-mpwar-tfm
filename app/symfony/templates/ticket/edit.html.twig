@@ -1,0 +1,42 @@
+{% extends 'menu.html.twig' %}
+
+{% block title %}TicketsApp | Edit ticket{% endblock %}
+
+{% block body %}
+        <h1>Edit ticket</h1>
+
+        {{ form_start(form, {'attr': {'class': 'form-post ticket-form'}}) }}
+        {{ form_row(form.title, {'attr': {
+            'class': 'form-control',
+            'value': ticket.title
+        } }) }}
+        {{ form_row(form.description, {
+            'value': ticket.description,
+            'attr': {
+                'class': 'form-control'
+            }
+        }) }}
+
+        {{ form_row(form.technician_user_id, {
+            'label': 'Technician',
+            'attr': {
+                'class': 'form-control'
+            }
+        }) }}
+        {{ form_row(form.priority_id, {
+            'label': 'Priority',
+            'attr': {
+                'class': 'form-control',
+            }
+
+        }) }}
+        {{ form_row(form.labels, {'attr': {
+            'class': 'form-control',
+
+        } }) }}
+
+
+        {{ form_row(form.submit, {'label': 'Save', 'attr': {'class': 'btn btn-gradient'}}) }}
+        {{ form_end(form) }}
+
+{% endblock %}
