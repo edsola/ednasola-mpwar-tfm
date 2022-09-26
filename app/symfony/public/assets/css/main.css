@@ -229,8 +229,13 @@ thead {
     }
 
     h1 {
-        padding-top: 50px;
+        padding-top: 80px;
     }
+
+    .icon-menu {
+        margin-left: 0 !important;
+    }
+
     .responsive-table tr  {
         display: flex;
     }
