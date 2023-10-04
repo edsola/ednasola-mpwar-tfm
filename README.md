@@ -1,3 +1,6 @@
+![TicketsApp](https://github.com/edsola/ednasola-mpwar-tfm/blob/main/app/symfony/public/assets/tickets-app.png)
+
+
 # TicketsApp
 *(Si es fa servir Windows es recomana utilitzar una consola com git bash)*
 ## Iniciar projecte
